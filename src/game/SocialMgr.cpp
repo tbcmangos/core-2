@@ -105,16 +105,42 @@ void PlayerSocial::RemoveFromSocialList(ObjectGuid friend_guid, bool ignore)
         CharacterDatabase.PExecute("UPDATE character_social SET flags = (flags & ~%u) WHERE guid = '%u' AND friend = '%u'", flag, m_playerLowGuid, friend_guid.GetCounter());
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void PlayerSocial::SetFriendNote(ObjectGuid friend_guid, std::string note)
+{
+    PlayerSocialMap::const_iterator itr = m_playerSocialMap.find(friend_guid.GetCounter());
+    if (itr == m_playerSocialMap.end())                     // not exist
+        return;
+
+    utf8truncate(note, 48);                                 // DB and client size limitation
+
+    std::string safe_note = note;
+    CharacterDatabase.escape_string(safe_note);
+    CharacterDatabase.PExecute("UPDATE character_social SET note = '%s' WHERE guid = '%u' AND friend = '%u'", safe_note.c_str(), m_playerLowGuid, friend_guid.GetCounter());
+    m_playerSocialMap[friend_guid.GetCounter()].Note = note;
+}
+#endif 
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void PlayerSocial::SendSocialList()
+#else
 void PlayerSocial::SendFriendList()
+#endif
 {
     MasterPlayer* plr = GetMasterPlayer();
     ASSERT(plr);
 
     uint32 size = GetNumberOfSocialsWithFlag(SOCIAL_FLAG_FRIEND);
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    WorldPacket data(SMSG_CONTACT_LIST, (4 + 4 + size * 25)); // just can guess size
+    data << uint32(7);                                      // unk flag (0x1, 0x2, 0x4), 0x7 if it include ignore list
+    data << uint32(size);                                   // friends count
+#else
 
     WorldPacket data(SMSG_FRIEND_LIST, (1 + size * 25)); // just can guess size
     data << uint8(size);                                   // friends count
 
+#endif
     for (auto& itr : m_playerSocialMap)
     {
         if (itr.second.Flags & SOCIAL_FLAG_FRIEND)         // if IsFriend()
@@ -123,6 +149,7 @@ void PlayerSocial::SendFriendList()
             sSocialMgr.GetFriendInfo(plr, itr.first, friendInfo);
 
             data << ObjectGuid(HIGHGUID_PLAYER, itr.first);// player guid
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
             data << uint8(friendInfo.Status);              // online/offline/etc?
             if (friendInfo.Status)                         // if online
             {
@@ -130,6 +157,21 @@ void PlayerSocial::SendFriendList()
                 data << uint32(friendInfo.Level);          // player level
                 data << uint32(friendInfo.Class);          // player class
             }
+#else
+            data << uint32(friendInfo.Flags);                  // player flag (0x1-friend?, 0x2-ignored?, 0x4-muted?)
+            data << friendInfo.Note;                           // string note
+            if (friendInfo.Flags & SOCIAL_FLAG_FRIEND)         // if IsFriend()
+            {
+                data << uint8(friendInfo.Status);              // online/offline/etc?
+                if (friendInfo.Status)                         // if online
+                {
+                    data << uint32(friendInfo.Area);           // player area
+                    data << uint32(friendInfo.Level);          // player level
+                    data << uint32(friendInfo.Class);          // player class
+                }
+            }
+#endif
+
         }
     }
 
@@ -137,6 +179,9 @@ void PlayerSocial::SendFriendList()
     DEBUG_LOG("WORLD: Sent SMSG_FRIEND_LIST");
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+
+#else
 void PlayerSocial::SendIgnoreList()
 {
     MasterPlayer* plr = GetMasterPlayer();
@@ -155,7 +200,7 @@ void PlayerSocial::SendIgnoreList()
     plr->GetSession()->SendPacket(&data);
     DEBUG_LOG("WORLD: Sent SMSG_IGNORE_LIST");
 }
-
+#endif
 bool PlayerSocial::HasFriend(ObjectGuid friend_guid) const
 {
     PlayerSocialMap::const_iterator itr = m_playerSocialMap.find(friend_guid.GetCounter());
@@ -327,12 +372,22 @@ PlayerSocial* SocialMgr::LoadFromDB(QueryResult* result, ObjectGuid guid)
         friend_guid = fields[0].GetUInt32();
         flags = fields[1].GetUInt32();
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        std::string note = fields[2].GetCppString();
+#endif
+        
+
         if ((flags & SOCIAL_FLAG_IGNORED) && ignoreCounter >= SOCIALMGR_IGNORE_LIMIT)
             continue;
         if ((flags & SOCIAL_FLAG_FRIEND) && friendCounter >= SOCIALMGR_FRIEND_LIMIT)
             continue;
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        social->m_playerSocialMap[friend_guid] = FriendInfo(flags, note);
+#else
         social->m_playerSocialMap[friend_guid] = FriendInfo(flags);
+#endif
+        
 
         if (flags & SOCIAL_FLAG_IGNORED)
             ignoreCounter++;

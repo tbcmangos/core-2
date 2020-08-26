@@ -92,7 +92,11 @@ void WorldSession::HandleMeetingStoneJoinOpcode(WorldPacket& recv_data)
 
 void WorldSession::HandleMeetingStoneLeaveOpcode(WorldPacket& /*recv_data*/)
 {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    DEBUG_LOG("WORLD: Recvd SMSG_MEETINGSTONE_LEAVE");
+#else
     DEBUG_LOG("WORLD: Recvd CMSG_MEETINGSTONE_LEAVE");
+#endif
     if (Group* grp = _player->GetGroup())
     {
         if (grp->IsLeader(_player->GetObjectGuid()) && grp->isInLFG())

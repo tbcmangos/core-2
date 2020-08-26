@@ -55,7 +55,9 @@ struct FriendInfo
     uint32 Area;
     uint32 Level;
     uint32 Class;
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    std::string Note;
+#endif
     FriendInfo()
     {
         Status = FRIEND_STATUS_OFFLINE;
@@ -64,14 +66,20 @@ struct FriendInfo
         Level = 0;
         Class = 0;
     }
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    explicit FriendInfo(uint32 flags, const std::string& note)
+#else
     explicit FriendInfo(uint32 flags)
+#endif
     {
         Status = FRIEND_STATUS_OFFLINE;
         Flags = flags;
         Area = 0;
         Level = 0;
         Class = 0;
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        Note = note;
+#endif
     }
 };
 
@@ -111,7 +119,11 @@ enum FriendsResult
 };
 
 #define SOCIALMGR_FRIEND_LIMIT  50
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define SOCIALMGR_IGNORE_LIMIT  25                          // checked max for 2.4.3, list tail not show if more
+#else
 #define SOCIALMGR_IGNORE_LIMIT  25                          // checked max for 1.12.1, list tail not show if more
+#endif
 
 class PlayerSocial
 {
@@ -124,8 +136,12 @@ class PlayerSocial
         void RemoveFromSocialList(ObjectGuid friend_guid, bool ignore);
         void SetFriendNote(ObjectGuid friend_guid, std::string note);
         // Packet send's
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void SendSocialList();
+#else
         void SendFriendList();
         void SendIgnoreList();
+#endif
         // Misc
         bool HasFriend(ObjectGuid friend_guid) const;
         bool HasIgnore(ObjectGuid ignore_guid) const;

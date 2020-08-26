@@ -404,6 +404,20 @@ bool Utf8toWStr(std::string const& utf8str, std::wstring& wstr, size_t max_len)
     return true;
 }
 
+void utf8truncate(std::string& utf8str, size_t len)
+{
+    try
+    {
+        std::wstring wstr;
+        Utf8toWStr(utf8str, wstr, len);
+        WStrToUtf8(wstr, utf8str);
+    }
+    catch (std::exception)
+    {
+        utf8str = "";
+    }
+}
+
 bool WStrToUtf8(std::wstring& wstr, std::string& utf8str)
 {
     try

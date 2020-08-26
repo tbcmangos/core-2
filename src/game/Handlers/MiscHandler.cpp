@@ -524,12 +524,22 @@ void WorldSession::HandleStandStateChangeOpcode(WorldPacket& recv_data)
     _player->ScheduleStandStateChange(animstate);
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::HandleContactListOpcode(WorldPacket& recv_data)
+{
+    ASSERT(GetMasterPlayer());
+    DEBUG_LOG("WORLD: Received CMSG_FRIEND_LIST");
+    GetMasterPlayer()->GetSocial()->SendSocialList();
+}
+#else
 void WorldSession::HandleFriendListOpcode(WorldPacket& recv_data)
 {
     ASSERT(GetMasterPlayer());
     DEBUG_LOG("WORLD: Received CMSG_FRIEND_LIST");
     GetMasterPlayer()->GetSocial()->SendFriendList();
 }
+#endif
+
 
 void WorldSession::HandleAddFriendOpcode(WorldPacket& recv_data)
 {
@@ -663,6 +673,17 @@ void WorldSession::HandleDelIgnoreOpcode(WorldPacket& recv_data)
 
     DEBUG_LOG("WORLD: Sent motd (SMSG_FRIEND_STATUS)");
 }
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::HandleSetContactNotesOpcode(WorldPacket& recv_data)
+{
+    DEBUG_LOG("WORLD: Received opcode CMSG_SET_CONTACT_NOTES");
+    ObjectGuid guid;
+    std::string note;
+    recv_data >> guid >> note;
+    GetMasterPlayer()->GetSocial()->SetFriendNote(guid, note);
+}
+#endif
 
 void WorldSession::HandleBugOpcode(WorldPacket& recv_data)
 {

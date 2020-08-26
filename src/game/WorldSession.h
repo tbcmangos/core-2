@@ -608,11 +608,18 @@ class WorldSession
         void HandleSetSelectionOpcode(WorldPacket& recvPacket);
         void HandleStandStateChangeOpcode(WorldPacket& recvPacket);
         void HandleEmoteOpcode(WorldPacket& recvPacket);
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void HandleContactListOpcode(WorldPacket& recvPacket);
+#else
         void HandleFriendListOpcode(WorldPacket& recvPacket);
+#endif
         void HandleAddFriendOpcode(WorldPacket& recvPacket);
         void HandleDelFriendOpcode(WorldPacket& recvPacket);
         void HandleAddIgnoreOpcode(WorldPacket& recvPacket);
         void HandleDelIgnoreOpcode(WorldPacket& recvPacket);
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void HandleSetContactNotesOpcode(WorldPacket& recvPacket);
+#endif
         void HandleBugOpcode(WorldPacket& recvPacket);
         void HandleSetAmmoOpcode(WorldPacket& recvPacket);
         void HandleItemNameQueryOpcode(WorldPacket& recvPacket);

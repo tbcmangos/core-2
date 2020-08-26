@@ -29,14 +29,16 @@
 #define CLIENT_BUILD_1_10_2 5302
 #define CLIENT_BUILD_1_11_2 5464
 #define CLIENT_BUILD_1_12_1 5875
-
+#define CLIENT_BUILD_2_4_3 8606
 // Change this to define which build of the game to emulate.
 // Has an effect on things such as core gameplay mechanics,
 // loading of client data, and network packets structure.
 #define SUPPORTED_CLIENT_BUILD @supported_build@
 
 // This defines which client builds the world server will accept.
-#if SUPPORTED_CLIENT_BUILD >= CLIENT_BUILD_1_12_1
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define EXPECTED_MANGOSD_CLIENT_BUILD        { 8606, 0}
+#elif SUPPORTED_CLIENT_BUILD == CLIENT_BUILD_1_12_1
 #define EXPECTED_MANGOSD_CLIENT_BUILD        { 5875, 6005, 6141, 0}
 #elif SUPPORTED_CLIENT_BUILD == CLIENT_BUILD_1_11_2
 #define EXPECTED_MANGOSD_CLIENT_BUILD        { 5464, 0}
@@ -73,10 +75,12 @@ enum WowPatch
     WOW_PATCH_109 = 7,
     WOW_PATCH_110 = 8,
     WOW_PATCH_111 = 9,
-    WOW_PATCH_112 = 10
+    WOW_PATCH_112 = 10,
+    WOW_PATCH_243 = 20
 };
-
-#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_11_2
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define MAX_CONTENT_PATCH 20
+#elif SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_11_2
 #define MAX_CONTENT_PATCH 10
 #elif SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_10_2
 #define MAX_CONTENT_PATCH 9

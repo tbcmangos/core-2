@@ -361,6 +361,7 @@ Anticrash.Rearm.Timer = 60000
 #        1.10  = 8
 #        1.11  = 9
 #        1.12  = 10
+#        2.4.3  = 20
 #
 #    PvP.AccurateEquipRequirements
 #        Whether to enforce Blizzlike PVP rank requirements to equip PVP gear before patch 1.6.

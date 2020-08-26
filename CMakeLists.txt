@@ -26,7 +26,7 @@ set(CMAKE_MODULE_PATH
 )
 
 option(DEBUG "Debug mode" 0)
-set(SUPPORTED_CLIENT_BUILD "CLIENT_BUILD_1_12_1" CACHE STRING "Client version the core will support")
+set(SUPPORTED_CLIENT_BUILD "CLIENT_BUILD_2_4_3" CACHE STRING "Client version the core will support")
 option(USE_STD_MALLOC "Use standard malloc instead of TBB" 0)
 option(TBB_DEBUG "Use TBB debug librairies" 0)
 option(USE_ANTICHEAT "Use anticheat" 0)

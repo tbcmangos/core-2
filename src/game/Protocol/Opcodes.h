@@ -35,7 +35,9 @@
 #include "WorldSession.h"
 
 /// List of Opcodes
-#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_8_4
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#include "Opcodes_2_4_3.h"
+#elif SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_8_4
 #include "Opcodes_1_12_1.h"
 #else
 #include "Opcodes_1_8_X.h"

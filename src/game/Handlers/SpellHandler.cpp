@@ -164,7 +164,16 @@ void WorldSession::HandleUseItemOpcode(WorldPacket& recvPacket)
         return;
     }
 
-    pUser->CastItemUseSpell(pItem, targets);
+	////Note: If script stop casting it must send appropriate data to client to prevent stuck item in gray state.	    pUser->CastItemUseSpell(pItem, targets);
+	//if (!sScriptMgr.OnItemUse(pUser, pItem, targets))
+	//{
+	//	// no script or script not process request by self	
+	//	pUser->CastItemUseSpell(pItem, targets);
+	//}
+#ifdef ENABLE_ELUNA
+	sScriptMgr.OnItemUse(pUser, pItem, targets);
+#endif /* ENABLE_ELUNA */
+	pUser->CastItemUseSpell(pItem, targets);
 }
 
 #define OPEN_CHEST 11437

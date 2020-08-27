@@ -82,7 +82,9 @@
 #include "GameEventMgr.h"
 #include "world/world_event_naxxramas.h"
 #include "world/world_event_wareffort.h"
-
+#ifdef ENABLE_ELUNA
+#include "LuaEngine.h"
+#endif /* ENABLE_ELUNA */
 #define ZONE_UPDATE_INTERVAL (1*IN_MILLISECONDS)
 
 #define PLAYER_SKILL_INDEX(x)       (PLAYER_SKILL_INFO_1_1 + ((x)*3))
@@ -3000,6 +3002,10 @@ void Player::GiveXP(uint32 xp, Unit* victim)
 
     uint32 level = GetLevel();
 
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnGiveXP(this, xp, victim);
+#endif /* ENABLE_ELUNA */
     // XP to money conversion processed in Player::RewardQuest
     if (level >= sWorld.getConfig(CONFIG_UINT32_MAX_PLAYER_LEVEL))
         return;
@@ -3031,6 +3037,7 @@ void Player::GiveXP(uint32 xp, Unit* victim)
 // Current player experience not update (must be update by caller)
 void Player::GiveLevel(uint32 level)
 {
+	  uint8 oldLevel = GetLevel();
     if (level == GetLevel())
         return;
 
@@ -3164,7 +3171,23 @@ void Player::GiveLevel(uint32 level)
 
     if (m_session->ShouldBeBanned(GetLevel()))
         sWorld.BanAccount(BAN_ACCOUNT, m_session->GetUsername(), 0, m_session->GetScheduleBanReason(), "");
+
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnLevelChanged(this, oldLevel);
+#endif /* ENABLE_ELUNA */
 }
+
+#ifdef ENABLE_ELUNA
+void Player::SetFreeTalentPoints(uint32 points)
+{
+
+	// used by eluna
+	sEluna->OnFreeTalentPointsChanged(this, points);
+	SetUInt32Value(PLAYER_CHARACTER_POINTS1, points);
+
+}
+#endif /* ENABLE_ELUNA */
 
 void Player::UpdateFreeTalentPoints(bool resetIfNeed)
 {
@@ -4056,6 +4079,10 @@ uint32 Player::GetResetTalentsCost() const
 
 bool Player::ResetTalents(bool no_cost)
 {
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnTalentsReset(this, no_cost);
+#endif
     // not need after this call
     if (HasAtLoginFlag(AT_LOGIN_RESET_TALENTS))
         RemoveAtLoginFlag(AT_LOGIN_RESET_TALENTS, true);
@@ -4653,6 +4680,17 @@ void Player::SetFly(bool enable)
     SendHeartBeat(true);
 }
 
+// used by eluna
+#ifdef ENABLE_ELUNA
+void Player::SetRoot(bool enable)
+{
+    WorldPacket data(enable ? SMSG_FORCE_MOVE_ROOT : SMSG_FORCE_MOVE_UNROOT, GetPackGUID().size() + 4);
+    data << GetPackGUID();
+    data << uint32(0);
+    SendMessageToSet(&data, true);
+}
+#endif 
+
 /* Preconditions:
   - a resurrectable corpse must not be loaded for the player (only bones)
   - the player must be in world
@@ -4748,7 +4786,10 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
     m_camera.UpdateVisibilityForOwner();
     // update visibility of player for nearby cameras
     UpdateObjectVisibility();
-
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnResurrect(this);
+#endif
     if (!applySickness)
         return;
 
@@ -6495,6 +6536,11 @@ void Player::RewardReputation(Unit* pVictim, float rate)
     if (pVictim->IsPet() && sWorld.GetWowPatch() >= WOW_PATCH_110)
         return;
 
+#ifdef ENABLE_ELUNA
+    if (((Creature*)pVictim)->IsReputationGainDisabled())
+        return;
+#endif
+
     ReputationOnKillEntry const* Rep = sObjectMgr.GetReputationOnKillEntry(((Creature*)pVictim)->GetEntry());
 
     if (!Rep)
@@ -6740,6 +6786,10 @@ void Player::UpdateZone(uint32 newZone, uint32 newArea)
             wth->SendWeatherUpdateToPlayer(this);
         }
     }
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnUpdateZone(this, newZone, newArea);
+#endif /* ENABLE_ELUNA */
 
     m_zoneUpdateId    = newZone;
     m_zoneUpdateTimer = ZONE_UPDATE_INTERVAL;
@@ -6870,7 +6920,10 @@ void Player::DuelComplete(DuelCompleteType type)
         data << GetName();
         SendObjectMessageToSet(&data, true);
     }
-
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnDuelEnd(duel->opponent, this, type);
+#endif /* ENABLE_ELUNA */
     //Remove Duel Flag object
     if (GameObject* obj = GetMap()->GetGameObject(GetGuidValue(PLAYER_DUEL_ARBITER)))
         duel->initiator->RemoveGameObject(obj, true);
@@ -7695,6 +7748,14 @@ void Player::SendLoot(ObjectGuid guid, LootType loot_type, Player* pVictim)
                 }
 
             loot = &go->loot;
+#ifdef ENABLE_ELUNA
+            Player* recipient = go->GetLootRecipient();
+            if (!recipient)
+            {
+                go->SetLootRecipient(this);
+                recipient = this;
+            }
+#endif
 
             // generate loot only if ready for open and spawned in world
             if (go->getLootState() == GO_READY && go->isSpawned())
@@ -8674,6 +8735,24 @@ uint32 Player::GetItemCount(uint32 item, bool inBankAlso, Item* skipItem) const
 
     return count;
 }
+
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+Item* Player::GetItemByEntry(uint32 itemEntry) const
+{
+     for (int i = EQUIPMENT_SLOT_START; i < INVENTORY_SLOT_ITEM_END; ++i)
+        if (Item* pItem = GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+            if (pItem->GetEntry() == itemEntry)
+                return pItem;
+
+    for (int i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+        if (Bag* pBag = (Bag*)GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+            if (Item* itemPtr = pBag->GetItemByEntry(itemEntry))
+                return itemPtr;
+
+    return NULL;
+}
+#endif
 
 Item* Player::GetItemByGuid(ObjectGuid guid) const
 {
@@ -10243,6 +10322,11 @@ InventoryResult Player::CanUseItem(ItemPrototype const* pProto, bool not_loading
         if (GetLevel() < pProto->RequiredLevel)
             return EQUIP_ERR_CANT_EQUIP_LEVEL_I;
 
+#ifdef ENABLE_ELUNA
+		InventoryResult eres = sEluna->OnCanUseItem(this, pProto->ItemId);
+		if (eres != EQUIP_ERR_OK)
+			return eres;
+#endif
         return EQUIP_ERR_OK;
     }
     return EQUIP_ERR_ITEM_NOT_FOUND;
@@ -10564,9 +10648,17 @@ Item* Player::EquipItem(uint16 pos, Item* pItem, bool update)
         pItem2->SetState(ITEM_CHANGED, this);
 
         ApplyEquipCooldown(pItem2);
+#ifdef ENABLE_ELUNA
+		// used by eluna
+		sEluna->OnEquip(this, pItem2, bag, slot);
+#endif
 
         return pItem2;
     }
+#ifdef ENABLE_ELUNA
+		// used by eluna
+		sEluna->OnEquip(this, pItem2, bag, slot);
+#endif
 
     return pItem;
 }
@@ -10779,6 +10871,10 @@ void Player::DestroyItem(uint8 bag, uint8 slot, bool update)
 
         ItemRemovedQuestCheck(pItem->GetEntry(), pItem->GetCount());
 
+#ifdef ENABLE_ELUNA
+		// used by eluna
+		sEluna->OnRemove(this, pItem);
+#endif
         if (bag == INVENTORY_SLOT_BAG_0)
         {
             SetGuidValue(PLAYER_FIELD_INV_SLOT_HEAD + (slot * 2), ObjectGuid());
@@ -13004,6 +13100,12 @@ void Player::AddQuest(Quest const* pQuest, Object* questGiver)
             case TYPEID_UNIT:
                 sScriptMgr.OnQuestAccept(this, (Creature*)questGiver, pQuest);
                 break;
+#ifdef ENABLE_ELUNA
+			case TYPEID_ITEM:
+			case TYPEID_CONTAINER:
+				sScriptMgr.OnQuestAccept(this, (Item*)questGiver, pQuest);
+				break;
+#endif /* ENABLE_ELUNA */
             case TYPEID_GAMEOBJECT:
                 sScriptMgr.OnQuestAccept(this, (GameObject*)questGiver, pQuest);
                 break;
@@ -13293,9 +13395,23 @@ void Player::RewardQuest(Quest const* pQuest, uint32 reward, WorldObject* questE
     switch (questEnder->GetTypeId())
     {
         case TYPEID_UNIT:
+#ifdef ENABLE_ELUNA
+			if (sEluna->OnQuestReward(this, (Creature*)questEnder, pQuest, reward))
+			{
+				handled = true;
+				break;
+			}
+#endif
             handled = sScriptMgr.OnQuestRewarded(this, (Creature*)questEnder, pQuest);
             break;
         case TYPEID_GAMEOBJECT:
+#ifdef ENABLE_ELUNA
+			if (sEluna->OnQuestReward(this, (GameObject*)questEnder, pQuest, reward))
+			{
+				handled = true;
+				break;
+			}
+#endif
             handled = sScriptMgr.OnQuestRewarded(this, (GameObject*)questEnder, pQuest);
             break;
     }
@@ -15944,6 +16060,11 @@ InstancePlayerBind* Player::BindToInstance(DungeonPersistentState* state, bool p
         if (!load)
             DEBUG_LOG("Player::BindToInstance: %s(%d) is now bound to map %d, instance %d",
                       GetName(), GetGUIDLow(), state->GetMapId(), state->GetInstanceId());
+#ifdef ENABLE_ELUNA
+		// used by eluna
+		sEluna->OnBindToInstance(this, (Difficulty)0, state->GetMapId(), permanent);
+
+#endif
         return &bind;
     }
     else
@@ -16195,6 +16316,11 @@ void Player::SaveToDB(bool online, bool force)
 
     m_honorMgr.Update();
 
+#ifdef ENABLE_ELUNA
+	// Hack to check that this is not on create save
+	if (!HasAtLoginFlag(AT_LOGIN_FIRST))
+		sEluna->OnSave(this);
+#endif
     static SqlStatementID insChar;
 
     SqlStatement uberInsert = CharacterDatabase.CreateStatement(insChar, "REPLACE INTO characters (guid,account,name,race,class,gender,level,xp,money,playerBytes,playerBytes2,playerFlags,"
@@ -17038,6 +17164,10 @@ void Player::UpdateDuelFlag(time_t currTime)
 {
     if (!duel || duel->finished || duel->startTimer == 0 || currTime < duel->startTimer + 3)
         return;
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnDuelStart(this, duel->opponent);
+#endif
 
     SetUInt32Value(PLAYER_DUEL_TEAM, 1);
     duel->opponent->SetUInt32Value(PLAYER_DUEL_TEAM, 2);
@@ -17106,6 +17236,26 @@ void Player::TextEmote(std::string const& text) const
     ChatHandler::BuildChatPacket(data, CHAT_MSG_EMOTE, text.c_str(), LANG_UNIVERSAL, GetChatTag(), GetObjectGuid(), GetName());
     SendMessageToSetInRange(&data, sWorld.getConfig(CONFIG_FLOAT_LISTEN_RANGE_TEXTEMOTE), true, !sWorld.getConfig(CONFIG_BOOL_ALLOW_TWO_SIDE_INTERACTION_CHAT));
 }
+
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+void Player::Whisper(const std::string& text, uint32 language, ObjectGuid receiver)
+{
+    if (language != LANG_ADDON)                             // if not addon data
+    {
+        language = LANG_UNIVERSAL;
+    }                      // whispers should always be readable
+
+    Player* rPlayer = sObjectMgr.GetPlayer(receiver);
+
+    if (!rPlayer) // Player is offline/not available.
+        return;
+
+    WorldPacket data;
+    ChatHandler::BuildChatPacket(data, CHAT_MSG_WHISPER, text.c_str(), Language(language), GetChatTag(), GetObjectGuid(), GetName());
+    rPlayer->GetSession()->SendPacket(&data);
+}
+#endif 
 
 void Player::PetSpellInitialize()
 {
@@ -20360,6 +20510,10 @@ void Player::LearnTalent(uint32 talentId, uint32 talentRank)
     // learn! (other talent ranks will unlearned at learning)
     LearnSpell(spellid, false, true);
     DETAIL_LOG("TalentID: %u Rank: %u Spell: %u\n", talentId, talentRank, spellid);
+#ifdef ENABLE_ELUNA
+	// used by eluna
+	sEluna->OnLearnTalents(this, talentId, talentRank, spellid);
+#endif
 }
 
 void Player::UpdateFallInformationIfNeed(MovementInfo const& minfo, uint16 opcode)
@@ -20464,6 +20618,18 @@ void Player::_SaveBGData()
 
     m_bgData.m_needSave = false;
 }
+
+#ifdef ENABLE_ELUNA
+// used by eluna
+void Player::ModifyMoney(int32 d)
+{
+    sEluna->OnMoneyChanged(this, d);
+    if (d < 0)
+        SetMoney(GetMoney() > uint32(-d) ? GetMoney() + d : 0);
+    else
+        SetMoney(GetMoney() < uint32(MAX_MONEY_AMOUNT - d) ? GetMoney() + d : MAX_MONEY_AMOUNT);
+}
+#endif
 
 void Player::RemoveAtLoginFlag(AtLoginFlags f, bool in_db_also /*= false*/)
 {

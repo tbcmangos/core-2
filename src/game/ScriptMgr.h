@@ -1243,7 +1243,7 @@ struct Script
         pGossipSelectWithCode(nullptr), pGOGossipSelectWithCode(nullptr), pQuestComplete(nullptr),
         pNPCDialogStatus(nullptr), pGODialogStatus(nullptr), pQuestRewardedNPC(nullptr), pQuestRewardedGO(nullptr), pItemHello(nullptr), pGOHello(nullptr), pAreaTrigger(nullptr),
         pProcessEventId(nullptr), pItemQuestAccept(nullptr), pGOQuestAccept(nullptr),
-        pItemUse(nullptr), pEffectDummyCreature(nullptr), pEffectDummyGameObj(nullptr),
+        pItemUse(nullptr), pEffectDummyCreature(nullptr), pEffectDummyGameObj(nullptr), pEffectDummyItem(nullptr),
         pEffectAuraDummy(nullptr), GOOpen(nullptr),
         GOGetAI(nullptr), GetAI(nullptr), GetInstanceData(nullptr)
     {}
@@ -1274,6 +1274,7 @@ struct Script
     bool (*pItemUse                 )(Player*, Item*, SpellCastTargets const&);
     bool (*pEffectDummyCreature     )(WorldObject*, uint32, SpellEffectIndex, Creature*);
     bool (*pEffectDummyGameObj      )(WorldObject*, uint32, SpellEffectIndex, GameObject*);
+    bool (*pEffectDummyItem         )(WorldObject*, uint32, SpellEffectIndex, Item*);
     bool (*pEffectAuraDummy         )(Aura const*, bool);
     bool (*GOOpen                   )(Player* pUser, GameObject* gobj);
     GameObjectAI* (*GOGetAI         )(GameObject* pGo);
@@ -1368,16 +1369,25 @@ class ScriptMgr
         bool OnGossipSelect(Player* pPlayer, GameObject* pGameObject, uint32 sender, uint32 action, char const* code);
         bool OnQuestAccept(Player* pPlayer, Creature* pCreature, Quest const* pQuest);
         bool OnQuestAccept(Player* pPlayer, GameObject* pGameObject, Quest const* pQuest);
+#ifdef ENABLE_ELUNA
+		bool OnQuestAccept(Player* pPlayer, Item* pItem, Quest const* pQuest);
+#endif /* ENABLE_ELUNA */
         bool OnQuestRewarded(Player* pPlayer, Creature* pCreature, Quest const* pQuest);
         bool OnQuestRewarded(Player* pPlayer, GameObject* pGameObject, Quest const* pQuest);
         uint32 GetDialogStatus(Player* pPlayer, Creature* pCreature);
         uint32 GetDialogStatus(Player* pPlayer, GameObject* pGameObject);
         bool OnGameObjectUse(Player* pPlayer, GameObject* pGameObject);
         bool OnGameObjectOpen(Player* pPlayer, GameObject* pGameObject);
+#ifdef ENABLE_ELUNA
+		bool OnItemUse(Player* pPlayer, Item* pItem, SpellCastTargets const& targets);
+#endif /* ENABLE_ELUNA */
         bool OnAreaTrigger(Player* pPlayer, AreaTriggerEntry const* atEntry);
         bool OnProcessEvent(uint32 eventId, Object* pSource, Object* pTarget, bool isStart);
         bool OnEffectDummy(WorldObject* pCaster, uint32 spellId, SpellEffectIndex effIndex, Creature* pTarget);
         bool OnEffectDummy(WorldObject* pCaster, uint32 spellId, SpellEffectIndex effIndex, GameObject* pTarget);
+#ifdef ENABLE_ELUNA
+		bool OnEffectDummy(WorldObject* pCaster, uint32 spellId, SpellEffectIndex effIndex, Item* pTarget);
+#endif /* ENABLE_ELUNA */
         bool OnAuraDummy(Aura const* pAura, bool apply);
 
     private:

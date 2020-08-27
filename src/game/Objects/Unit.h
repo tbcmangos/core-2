@@ -416,6 +416,16 @@ class Unit : public WorldObject
         float m_modAttackSpeedPct[3];
         float m_modRecalcDamagePct[3];
 
+// used by eluna
+#ifdef ENABLE_ELUNA
+        /**
+         * Checks if we are attacking a player.
+         * Pets/minions etc attacking a player counts towards you attacking a player.
+         * @return true if you and/or your pets/minions etc are attacking a player.
+         */
+        bool isAttackingPlayer() const;
+#endif
+
 #if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_6_1
         uint32 GetCreateHealth() const { return m_createHealth; }
 #else
@@ -443,6 +453,10 @@ class Unit : public WorldObject
         bool HealthBelowPctDamaged(int32 pct, uint32 damage) const { return (int32(GetHealth()) - damage) * 100 < GetMaxHealth() * pct; }
         bool HealthAbovePct(int32 pct) const { return GetHealth() * 100 > GetMaxHealth() * pct; }
         uint32 CountPctFromMaxHealth(int32 pct) const { return uint32(float(pct) * GetMaxHealth() / 100.0f); }
+// used by eluna
+#ifdef ENABLE_ELUNA
+        uint32 CountPctFromCurHealth(int32 pct) const { return uint32(float(pct) * GetHealth() / 100.0f); }
+#endif
         void SetFullHealth() { SetHealth(GetMaxHealth()); }
 
         Powers GetPowerType() const { return Powers(GetByteValue(UNIT_FIELD_BYTES_0, 3)); }
@@ -752,7 +766,10 @@ class Unit : public WorldObject
         // Apply SpellEffects::EffectSummonPet after ressurecting in BG.
         ObjectGuid EffectSummonPet(uint32 spellId, uint32 petEntry, uint32 petLevel);
         void ModPossess(Unit* target, bool apply, AuraRemoveMode m_removeMode = AURA_REMOVE_BY_DEFAULT);
-
+// used by eluna
+#ifdef ENABLE_ELUNA
+        void RemoveSpellCategoryCooldown(uint32 cat, bool update = false);
+#endif
     private:
         void CleanupDeletedAuras();
 
@@ -827,6 +844,11 @@ class Unit : public WorldObject
         SpellAuraHolderMap const& GetSpellAuraHolderMap() const { return m_spellAuraHolders; }
         void DelaySpellAuraHolder(uint32 spellId, int32 delaytime, ObjectGuid casterGuid);
         AuraList const& GetAurasByType(AuraType type) const { return m_modAuras[type]; }
+
+// used by eluna
+#ifdef ENABLE_ELUNA
+        bool isDying() const { return m_deathState == JUST_DIED; }
+#endif  
 
         int32 GetTotalAuraModifier(AuraType auratype) const;
         float GetTotalAuraMultiplier(AuraType auratype) const;
@@ -1240,6 +1262,11 @@ class Unit : public WorldObject
         void SetFactionTemplateId(uint32 faction) { SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, faction); }
         void RestoreFaction();
 
+// used by eluna
+#ifdef ENABLE_ELUNA
+        void SetFaction(uint32 faction) { SetUInt32Value(UNIT_FIELD_FACTIONTEMPLATE, faction); }
+#endif  
+        
         bool IsHostileTo(WorldObject const* target) const override;
         bool IsHostileToPlayers() const;
         bool IsFriendlyTo(WorldObject const* target) const override;

@@ -697,6 +697,12 @@ class ObjectMgr
 
         void LoadTaxiNodes();
         TaxiNodesEntry const* GetTaxiNodeEntry(uint32 id) const { return id < GetMaxTaxiNodeId() ? m_TaxiNodes[id].get() : nullptr; }
+
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        void SetTaxiNodeEntry(uint32 nodeId, std::unique_ptr<TaxiNodesEntry> &nodeEntry);
+#endif 
+
         uint32 GetMaxTaxiNodeId() const { return m_TaxiNodes.size(); }
 
         Quest const* GetQuestTemplate(uint32 quest_id) const

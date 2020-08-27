@@ -136,6 +136,12 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
             fclose(dberLogfile);
         dberLogfile = nullptr;
 
+#ifdef ENABLE_ELUNA
+        if (elunaErrLogfile != nullptr)
+            fclose(elunaErrLogfile);
+        elunaErrLogfile = nullptr;
+#endif /* ENABLE_ELUNA */
+
         if (worldLogfile != nullptr)
             fclose(worldLogfile);
         worldLogfile = nullptr;
@@ -155,7 +161,7 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
                 fclose(logFile);
                 logFile = nullptr;
             }
-        } 
+        }
     }
     public:
         void Initialize();
@@ -186,7 +192,11 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
         void outErrorDb();                                  // any log level
                                                             // any log level
         void outErrorDb(char const* str, ...)     ATTR_PRINTF(2,3);
+#ifdef ENABLE_ELUNA
+        void outErrorEluna(); // any log level
+        void outErrorEluna(const char* str, ...) ATTR_PRINTF(2, 3);
                                                             // any log level
+#endif
         void outWorldPacketDump(ACE_HANDLE socketHandle, uint32 opcode,
                                 char const* opcodeName,
                                 ByteBuffer const* packet, bool incoming);
@@ -216,6 +226,9 @@ class Log : public MaNGOS::Singleton<Log, MaNGOS::ClassLevelLockable<Log, ACE_Th
         FILE* logfile;
         FILE* gmLogfile;
         FILE* dberLogfile;
+#ifdef ENABLE_ELUNA
+        FILE* elunaErrLogfile;
+#endif /* ENABLE_ELUNA */
         FILE* wardenLogfile;
         FILE* anticheatLogfile;
         FILE* worldLogfile;

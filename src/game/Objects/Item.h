@@ -286,6 +286,14 @@ class Item : public Object
                 GetProto()->SubClass == ITEM_SUBCLASS_WEAPON_EXOTIC));
         }
 
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        bool IsLocked() const { return GetProto()->LockID && !HasFlag(ITEM_FIELD_FLAGS, ITEM_DYNFLAG_UNLOCKED); }
+        Bag* ToBag() { if (IsBag()) return reinterpret_cast<Bag*>(this); else return nullptr; }
+        const Bag* ToBag() const { if (IsBag()) return reinterpret_cast<const Bag*>(this); else return nullptr; }
+        bool IsNotEmptyBag() const;
+#endif 
+
         bool IsBag() const { return GetProto()->InventoryType == INVTYPE_BAG; }
         bool IsBroken() const { return GetUInt32Value(ITEM_FIELD_MAXDURABILITY) > 0 && GetUInt32Value(ITEM_FIELD_DURABILITY) == 0; }
         bool CanBeTraded() const;

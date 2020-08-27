@@ -996,6 +996,10 @@ class Player final: public Unit
         uint8 FindEquipSlot(ItemPrototype const* proto, uint32 slot, bool swap) const;
         uint32 GetItemCount(uint32 item, bool inBankAlso = false, Item* skipItem = nullptr) const;
         Item* GetItemByGuid(ObjectGuid guid) const;
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        Item* GetItemByEntry(uint32 item) const;            // only for special cases
+#endif
         Item* GetItemByPos(uint16 pos) const;
         Item* GetItemByPos(uint8 bag, uint8 slot) const;
         Item* GetWeaponForAttack(WeaponAttackType attackType) const { return GetWeaponForAttack(attackType,false,false); }
@@ -1111,13 +1115,20 @@ class Player final: public Unit
 
         uint32 GetMoney() const { return GetUInt32Value(PLAYER_FIELD_COINAGE); }
         void LogModifyMoney(int32 d, char const* type, ObjectGuid fromGuid = ObjectGuid(), uint32 data = 0);
+
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        void ModifyMoney(int32 d);
+#else
         void ModifyMoney(int32 d)
         {
-            if (d < 0)
-                SetMoney(GetMoney() > uint32(-d) ? GetMoney() + d : 0);
-            else
-                SetMoney(GetMoney() < uint32(MAX_MONEY_AMOUNT - d) ? GetMoney() + d : MAX_MONEY_AMOUNT);
+        	if (d < 0)
+        		SetMoney(GetMoney() > uint32(-d) ? GetMoney() + d : 0);
+        	else
+        		SetMoney(GetMoney() < uint32(MAX_MONEY_AMOUNT - d) ? GetMoney() + d : MAX_MONEY_AMOUNT);
         }
+#endif
+		    
         void LootMoney(int32 g, Loot* loot);
         std::string GetShortDescription() const; // "player:guid [username:accountId@IP]"
 
@@ -1459,13 +1470,20 @@ class Player final: public Unit
         uint32 m_usedTalentCount;
 
         void UpdateFreeTalentPoints(bool resetIfNeed = true);
-        uint32 GetResetTalentsCost() const;
         void UpdateResetTalentsMultiplier() const;
         uint32 CalculateTalentsPoints() const;
         void SendTalentWipeConfirm(ObjectGuid guid) const;
     public:
+        uint32 GetResetTalentsCost() const;
         uint32 GetFreeTalentPoints() const { return GetUInt32Value(PLAYER_CHARACTER_POINTS1); }
+
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        void SetFreeTalentPoints(uint32 points);
+#else
         void SetFreeTalentPoints(uint32 points) { SetUInt32Value(PLAYER_CHARACTER_POINTS1, points); }
+#endif
+
         bool ResetTalents(bool no_cost = false);
         void InitTalentForLevel();
         void LearnTalent(uint32 talentId, uint32 talentRank);
@@ -1494,8 +1512,12 @@ class Player final: public Unit
         void RegenerateHealth();
         void HandleFoodEmotes(uint32 diff);
 
+        // used by eluna
+#ifdef ENABLE_ELUNA
         static float GetHealthBonusFromStamina(float stamina);
         static float GetManaBonusFromIntellect(float intellect);
+#endif
+
         float GetMeleeCritFromAgility() const;
         float GetDodgeFromAgility() const;
         float GetSpellCritFromIntellect() const;
@@ -1587,6 +1609,9 @@ class Player final: public Unit
 
         float GetSpellCritPercent(SpellSchools school) const { return m_SpellCritPercentage[school]; }
         void SetSpellCritPercent(SpellSchools school, float percent) { m_SpellCritPercentage[school] = percent; }
+
+        float GetHealthBonusFromStamina() const { return GetHealthBonusFromStamina(GetStat(STAT_STAMINA)); };
+        float GetManaBonusFromIntellect() const { return GetManaBonusFromIntellect(GetStat(STAT_INTELLECT)); };
 
         /*********************************************************/
         /***                   SKILLS SYSTEM                   ***/
@@ -1784,7 +1809,11 @@ class Player final: public Unit
             m_lastFallZ = z;
         }
         void HandleFall(MovementInfo const& movementInfo);
+
+// used by eluna
+#ifdef ENABLE_ELUNA
         bool IsFalling() const { return GetPositionZ() < m_lastFallZ; }
+#endif 
 
         void SetClientControl(Unit* target, uint8 allowMove);
         void SetMover(Unit* target) { m_mover = target ? target : this; }
@@ -1886,7 +1915,7 @@ class Player final: public Unit
         void SetInWater(bool apply);
         bool IsInWater() const override { return m_isInWater; }
         bool IsUnderWater() const override;
-
+        bool IsFalling() { return GetPositionZ() < m_lastFallZ; }
         void SendInitialPacketsBeforeAddToMap();
         void SendInitialPacketsAfterAddToMap(bool login = true);
 
@@ -1972,6 +2001,11 @@ class Player final: public Unit
 
         void CinematicEnd();
         void CinematicStart(uint32 id);
+
+// used by eluna
+#ifdef ENABLE_ELUNA
+        void SetRoot(bool enable);
+#endif
 
         uint32 watching_cinematic_entry;
         Position cinematic_start;
@@ -2182,6 +2216,11 @@ class Player final: public Unit
         void Yell(std::string const& text, uint32 const language) const;
         void TextEmote(std::string const& text) const;
 
+// used by eluna
+#ifdef ENABLE_ELUNA
+        void Whisper(std::string const& text, const uint32 language, ObjectGuid receiver);
+#endif
+
         /*********************************************************/
         /***                   FACTION SYSTEM                  ***/
         /*********************************************************/
@@ -2239,6 +2278,17 @@ class Player final: public Unit
         void RewardHonor(Unit* uVictim, uint32 groupSize);
         void RewardHonorOnDeath();
         bool IsHonorOrXPTarget(Unit* pVictim) const;
+
+// used by eluna
+#ifdef ENABLE_ELUNA
+        bool AddHonorCP(float honor, uint8 type, Unit* victim = nullptr) { return m_honorMgr.Add(honor, type, victim); };
+        void ResetHonor() { m_honorMgr.Reset(); };
+        void ClearHonorInfo() { m_honorMgr.ClearHonorData(); };
+        void UpdateHonor() { m_honorMgr.Update(); };
+        float GetRankPoints(void) const { return m_honorMgr.GetRankPoints(); }
+        int32 GetHonorLastWeekStandingPos() const { return m_honorMgr.GetStanding(); }
+        //float GetHonorStoredKills(bool honorable) const { return honorable ? m_honorMgr.HonorableKillPoints: m_honorMgr.DishonorableKillPoints; }
+#endif
 
         HonorMgr&       GetHonorMgr() { return m_honorMgr; }
         HonorMgr const& GetHonorMgr() const { return m_honorMgr; }
@@ -2433,7 +2483,6 @@ class Player final: public Unit
         void SetAutoInstanceSwitch(bool v) { m_enableInstanceSwitch = v; }
         bool GetSmartInstanceBindingMode() const { return m_smartInstanceRebind; }
         void SetSmartInstanceBindingMode(bool smartRebinding) { m_smartInstanceRebind = smartRebinding; }
-
         /*********************************************************/
         /***                   GROUP SYSTEM                    ***/
         /*********************************************************/

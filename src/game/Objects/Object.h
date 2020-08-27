@@ -100,6 +100,9 @@ class InstanceData;
 class TerrainInfo;
 class ZoneScript;
 class Transport;
+#ifdef ENABLE_ELUNA
+class ElunaEventProcessor;
+#endif /* ENABLE_ELUNA */
 class SpellEntry;
 class Spell;
 
@@ -725,7 +728,12 @@ class WorldObject : public Object
                 WorldObject* const m_obj;
         };
 
-        ~WorldObject () override {}
+// Used by Eluna
+#ifdef ENABLE_ELUNA
+        virtual ~WorldObject();
+#else
+        ~WorldObject() override {}
+#endif
 
         virtual void Update(uint32 /*update_diff*/, uint32 /*time_diff*/);
 
@@ -1001,6 +1009,10 @@ class WorldObject : public Object
 
         uint32 GetCreatureSummonLimit() const;
         void SetCreatureSummonLimit(uint32 limit);
+
+#ifdef ENABLE_ELUNA
+        ElunaEventProcessor* elunaEvents;
+#endif /* ENABLE_ELUNA */
 
         virtual uint32 GetLevel() const = 0;
         uint32 GetLevelForTarget(WorldObject const* target = nullptr) const;

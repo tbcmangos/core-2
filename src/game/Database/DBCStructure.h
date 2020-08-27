@@ -769,7 +769,7 @@ struct ItemRandomPropertiesEntry
 {
     uint32    ID;                                           // 0        m_ID
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
-    char*     internalName;                                 // 1        m_Name
+    char*     internalName;                                 // 1        m_Name not used in cmangos
     uint32    enchant_id[3];                                // 2-4      m_Enchantment
     // 5-6 unused, 0 only values, reserved for additional enchantments
     char*     nameSuffix[16];                               // 7-22     m_name_lang
@@ -923,12 +923,14 @@ struct NamesProfanityEntry
 {
     //uint32    ID;                                         // 0
     char const* Name;                                       // 1
+    uint32     local_id;                                    // 2       localid
 };
 
 struct NamesReservedEntry
 {
     //uint32    ID;                                         // 0
     char const* Name;                                       // 1
+    uint32     local_id;                                    // 2       localid
 };
 
 struct QuestSortEntry

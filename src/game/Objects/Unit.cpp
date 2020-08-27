@@ -7273,8 +7273,10 @@ uint32 Unit::GetCreatureType() const
         SpellShapeshiftFormEntry const* ssEntry = sSpellShapeshiftFormStore.LookupEntry(GetShapeshiftForm());
         if (ssEntry && ssEntry->creatureType > 0)
             return ssEntry->creatureType;
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         else if (ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(GetRace()))
             return raceEntry->creatureType;
+#endif
         else
             return CREATURE_TYPE_HUMANOID;
     }

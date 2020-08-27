@@ -248,7 +248,7 @@ struct ChrRacesEntry
 {
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
     uint32      RaceID;                                     // 0        m_ID
-    uint32      Flags;                                      // 1        m_flags
+    uint32      Flags;                                      // 1        m_flags //cmangos is no used
     uint32      FactionID;                                  // 2        m_factionID
     // 3        m_ExplorationSoundID
     uint32      model_m;                                    // 4        m_MaleDisplayId
@@ -256,8 +256,8 @@ struct ChrRacesEntry
     // 6        m_ClientPrefix
     // 7        unused
     uint32      TeamID;                                     // 8        m_BaseLanguage (7-Alliance 1-Horde)
-    uint32      creatureType;                               // 9        m_creatureType (blizzlike always 7-humanoid) cmangos is no used
-    uint32      resSicknessSpellId;                         // 10       m_ResSicknessSpellId (blizzlike always 15007)  cmangos is no used
+    //uint32      creatureType;                               // 9        m_creatureType (blizzlike always 7-humanoid) cmangos is no used
+    //uint32      resSicknessSpellId;                         // 10       m_ResSicknessSpellId (blizzlike always 15007)  cmangos is no used
     // 11       m_SplashSoundID
     // 12       m_clientFileString
     uint32      CinematicSequence;                          // 13       m_cinematicSequenceID
@@ -296,6 +296,7 @@ struct ChrRacesEntry
     
 #endif
     inline bool HasFlag(ChrRacesFlags flag) const { return !!(Flags & flag); }
+   
 };
 
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1

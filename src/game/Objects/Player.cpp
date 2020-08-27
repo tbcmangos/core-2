@@ -4802,7 +4802,12 @@ void Player::ResurrectPlayer(float restore_percent, bool applySickness)
     //Characters level 20 and up suffer from ten minutes of sickness.
     int32 const startLevel = sWorld.getConfig(CONFIG_INT32_DEATH_SICKNESS_LEVEL);
     ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(GetRace());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    uint32 const spellId = SPELL_ID_PASSIVE_RESURRECTION_SICKNESS;
+#else
     uint32 const spellId = raceEntry ? raceEntry->resSicknessSpellId : SPELL_ID_PASSIVE_RESURRECTION_SICKNESS;
+#endif
+    
 
     if (int32(GetLevel()) >= startLevel)
     {

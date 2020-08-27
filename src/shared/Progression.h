@@ -104,4 +104,53 @@ enum WowPatch
 #define MAX_CONTENT_PATCH 0
 #endif
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+// will only support WoW and WoW:TBC 2.4.3 client build 8606...
+// max supported expansion level in mangosd
+// NOTE: not set it more that supported by targeted client version with all expansions installed
+// account with expansion > client supported will rejected at connection by client
+// because if client receive unsupported expansion level it think
+// that it not have expansion installed and reject
+enum Expansions
+{
+    EXPANSION_NONE                      = 0,                // classic
+    EXPANSION_TBC                       = 1,                // TBC
+};
+
+#define MAX_EXPANSION 1
+
+// Maxlevel for expansion
+enum MaxLevel
+{
+    MAX_LEVEL_CLASSIC                   = 60,
+    MAX_LEVEL_TBC                       = 70,
+};
+ 
+static const MaxLevel maxLevelForExpansion[MAX_EXPANSION + 1] = { MAX_LEVEL_CLASSIC, MAX_LEVEL_TBC };
+#endif
+
+// Client expected level limitation, like as used in DBC item max levels for "until max player level"
+// use as default max player level, must be fit max level for used client
+// also see MAX_LEVEL and PLAYER_STRONG_MAX_LEVEL define
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define PLAYER_MAX_LEVEL 70
+#else
+#define PLAYER_MAX_LEVEL 60
+#endif
+
+// client supported max level for player/pets/etc. Avoid overflow or client stability affected.
+// also see GT_MAX_LEVEL define
+#define MAX_LEVEL    100
+
+// Server side limitation. Base at used code requirements.
+// also see MAX_LEVEL and GT_MAX_LEVEL define
+#define PLAYER_STRONG_MAX_LEVEL 255
+
+// Max creature level in vanilla (included some bosses and elite) (no cls data above this level)
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define CREATURE_MAX_LEVEL 75
+#else
+#define CREATURE_MAX_LEVEL 65
+#endif
+
 #endif

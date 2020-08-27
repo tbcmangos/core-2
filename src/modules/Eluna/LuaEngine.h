@@ -38,7 +38,7 @@ typedef SpellEffectIndex SpellEffIndex;
 struct SpellEntry;
 typedef SpellEntry SpellInfo;
 #ifdef CLASSIC
-typedef int Difficulty;
+typedef enum Difficulty;
 #endif
 #endif
 #ifndef AZEROTHCORE

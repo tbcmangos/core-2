@@ -1197,6 +1197,8 @@ char const* World::GetPatchName() const
             return "Patch 1.11: Shadow of the Necropolis";
         case 10:
             return "Patch 1.12: Drums of War";
+        case 20:
+            return "Patch 2.4.3: The Burning Crusade";
     }
 
     return "Invalid Patch!";

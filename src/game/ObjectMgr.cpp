@@ -5839,8 +5839,8 @@ void ObjectMgr::LoadMapTemplate()
         }
 
         // the reset_delay must be at least one day
-        if (itr->resetDelay)
-            const_cast<MapEntry*>(*itr)->resetDelay = std::max((uint32)1, (uint32)(itr->resetDelay * sWorld.getConfig(CONFIG_FLOAT_RATE_INSTANCE_RESET_TIME)));
+        if (itr->resetTimeRaid)
+            const_cast<MapEntry*>(*itr)->resetTimeRaid = std::max((uint32)1, (uint32)(itr->resetTimeRaid * sWorld.getConfig(CONFIG_FLOAT_RATE_INSTANCE_RESET_TIME)));
     }
 
     sLog.outString(">> Loaded %u Map Template definitions", sMapStorage.GetRecordCount());

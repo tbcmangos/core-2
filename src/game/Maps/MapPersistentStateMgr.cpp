@@ -301,7 +301,7 @@ uint32 DungeonResetScheduler::GetMaxResetTimeFor(MapEntry const* temp)
     if (!temp)
         return 0;
 
-    return temp->resetDelay * DAY;
+    return temp->resetTimeRaid * DAY;
 }
 
 time_t DungeonResetScheduler::CalculateNextResetTime(MapEntry const* temp, time_t prevResetTime)
@@ -459,7 +459,7 @@ void DungeonResetScheduler::ScheduleAllDungeonResets()
     for (auto itr = sMapStorage.begin<MapEntry>(); itr < sMapStorage.end<MapEntry>(); ++itr)
     {
         // only raid maps have a global reset time
-        if (!itr->IsDungeon() || !itr->resetDelay)
+        if (!itr->IsDungeon() || !itr->resetTimeRaid)
             continue;
 
         uint32 period = GetMaxResetTimeFor(*itr);
@@ -944,7 +944,7 @@ void MapPersistentStateManager::_ResetOrWarnAll(uint32 mapid, bool warn, uint32 
     if (!warn)
     {
         // this is called one minute before the reset time
-        if (!mapEntry->resetDelay)
+        if (!mapEntry->resetTimeRaid)
         {
             sLog.outError("MapPersistentStateManager::ResetOrWarnAll: no instance template or reset delay for map %d", mapid);
             return;

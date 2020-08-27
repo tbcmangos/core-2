@@ -84,6 +84,46 @@ namespace VMAP
 #pragma pack(push,1)
 #endif
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+//notes, this is actually read from SQL map_template but other core are reading in the Map.dbc
+struct MapEntry
+{
+    uint32 id;
+    uint32 parent;
+    uint32 mapType;
+    uint32 linkedZone;
+    uint32 levelMin;
+    uint32 levelMax;
+    uint32 maxPlayers;
+    //uint32 resetDelay;
+    int32 ghostEntranceMap;
+    float ghostEntranceX;
+    float ghostEntranceY;
+    char* name;
+    uint32 scriptId;
+    uint32 resetTimeRaid;                                   // 120    originally resetDelay
+    uint32 resetTimeHeroic;                                 // 121   //TODO add new column to database
+    // 122      all 0
+    // uint32  timeOfDayOverride;                           // 123      m_timeOfDayOverride
+    uint32  addon;                                          // 124      m_expansionID //TODO add new column to database
+
+    // Helpers
+    uint32 Expansion() const { return addon; }
+
+    bool IsDungeon() const { return mapType == MAP_INSTANCE || mapType == MAP_RAID; }
+    bool IsNonRaidDungeon() const { return mapType == MAP_INSTANCE; }
+    bool Instanceable() const { return mapType == MAP_INSTANCE || mapType == MAP_RAID || mapType == MAP_BATTLEGROUND || mapType == MAP_ARENA; }
+    bool IsRaid() const { return mapType == MAP_RAID; }
+    bool IsBattleGround() const { return mapType == MAP_BATTLEGROUND; }
+    bool IsMountAllowed() const { return !IsDungeon() || id == 309 || id == 209 || id == 509 || id == 269; }
+    bool IsContinent() const { return id == 0 || id == 1 || id == 530; }
+    bool IsBattleArena() const { return mapType == MAP_ARENA; }
+    bool IsBattleGroundOrArena() const { return mapType == MAP_BATTLEGROUND || mapType == MAP_ARENA; }
+    bool SupportsHeroicMode() const { return resetTimeHeroic && !resetTimeRaid; }
+    bool HasResetTime() const { return resetTimeHeroic || resetTimeRaid; }
+};
+#else
+//notes, this is actually read from SQL map_template but other core are reading in the Map.dbc
 struct MapEntry
 {
     uint32 id;
@@ -108,6 +148,7 @@ struct MapEntry
     bool IsMountAllowed() const { return !IsDungeon() || id == 309 || id == 209 || id == 509 || id == 269; }
     bool IsContinent() const { return id == 0 || id == 1; }
 };
+#endif
 
 typedef std::map<uint32, uint32> AreaFlagByMapId;
 static AreaFlagByMapId sAreaFlagByMapId;

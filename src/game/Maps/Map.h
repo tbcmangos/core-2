@@ -89,6 +89,7 @@ namespace VMAP
 struct MapEntry
 {
     uint32 id;
+    uint32  addon;                                          // 124      m_expansionID //TODO add new column to database
     uint32 parent;
     uint32 mapType;
     uint32 linkedZone;
@@ -96,16 +97,17 @@ struct MapEntry
     uint32 levelMax;
     uint32 maxPlayers;
     //uint32 resetDelay;
+    uint32 resetTimeRaid;                                   // 120    originally resetDelay
+    uint32 resetTimeHeroic;                                 // 121   //TODO add new column to database
     int32 ghostEntranceMap;
     float ghostEntranceX;
     float ghostEntranceY;
     char* name;
     uint32 scriptId;
-    uint32 resetTimeRaid;                                   // 120    originally resetDelay
-    uint32 resetTimeHeroic;                                 // 121   //TODO add new column to database
+
     // 122      all 0
     // uint32  timeOfDayOverride;                           // 123      m_timeOfDayOverride
-    uint32  addon;                                          // 124      m_expansionID //TODO add new column to database
+    
 
     // Helpers
     uint32 Expansion() const { return addon; }

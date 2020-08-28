@@ -50,9 +50,38 @@ enum Races
     RACE_GNOME              = 7,
     RACE_TROLL              = 8,
     RACE_GOBLIN             = 9,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    RACE_BLOODELF = 10,
+    RACE_DRAENEI = 11,
+    RACE_FEL_ORC = 12,
+    RACE_NAGA = 13,
+    RACE_BROKEN = 14,
+    RACE_SKELETON = 15,
+    RACE_VRYKUL = 16,
+    RACE_TUSKARR = 17,
+    RACE_FOREST_TROLL = 18,
+#endif
 };
 
 // max+1 for player race
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define MAX_RACES         12
+
+#define RACEMASK_ALL_PLAYABLE \
+    ((1<<(RACE_HUMAN-1))    |(1<<(RACE_ORC-1))      |(1<<(RACE_DWARF-1))   | \
+    (1<<(RACE_NIGHTELF-1))  |(1<<(RACE_UNDEAD-1))   |(1<<(RACE_TAUREN-1))  | \
+    (1 << (RACE_GNOME - 1)) | (1 << (RACE_TROLL - 1)) | (1 << (RACE_BLOODELF - 1)) | \
+    (1 << (RACE_DRAENEI - 1)))
+
+// for most cases batter use ChrRace data for team check as more safe, but when need full mask of team can be use this defines.
+#define RACEMASK_ALLIANCE \
+    ((1<<(RACE_HUMAN-1))    |(1<<(RACE_DWARF-1))    |(1<<(RACE_NIGHTELF-1))| \
+    (1 << (RACE_GNOME - 1)) | (1 << (RACE_DRAENEI - 1)))
+
+#define RACEMASK_HORDE \
+    ((1<<(RACE_ORC-1))      |(1<<(RACE_UNDEAD-1))   |(1<<(RACE_TAUREN-1))  | \
+    (1 << (RACE_TROLL - 1)) | (1 << (RACE_BLOODELF - 1)))
+#else
 #define MAX_RACES         9
 
 #define RACEMASK_ALL_PLAYABLE \
@@ -68,6 +97,8 @@ enum Races
 #define RACEMASK_HORDE \
     ((1<<(RACE_ORC-1))      |(1<<(RACE_UNDEAD-1))   |(1<<(RACE_TAUREN-1))  | \
     (1<<(RACE_TROLL-1)))
+#endif 
+
 
 // Class value is index in ChrClasses.dbc
 enum Classes
@@ -233,10 +264,20 @@ enum Language
     LANG_GNOMISH        = 13,
     LANG_TROLL          = 14,
     LANG_GUTTERSPEAK    = 33,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    LANG_DRAENEI        = 35,
+    LANG_ZOMBIE         = 36,
+    LANG_GNOMISH_BINARY = 37,
+    LANG_GOBLIN_BINARY  = 38,
+#endif
     LANG_ADDON          = 0xFFFFFFFF                        // used by addons, in 2.4.0 not exit, replaced by messagetype?
 };
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define LANGUAGES_COUNT   19
+#else
 #define LANGUAGES_COUNT   15
+#endif
 
 // In fact !=0 values is alliance/horde root faction ids
 enum Team
@@ -303,12 +344,22 @@ enum GameobjectTypes
 #endif
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_11_2
     GAMEOBJECT_TYPE_CAPTURE_POINT          = 29,
-    GAMEOBJECT_TYPE_AURA_GENERATOR         = 30,
+    GAMEOBJECT_TYPE_AURA_GENERATOR         = 30, // Unimplemented - prototype go_aura_generator_000AI
+#endif
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    GAMEOBJECT_TYPE_DUNGEON_DIFFICULTY     = 31,
+    GAMEOBJECT_TYPE_BARBER_CHAIR           = 32,
+    GAMEOBJECT_TYPE_DESTRUCTIBLE_BUILDING  = 33,
+    GAMEOBJECT_TYPE_GUILD_BANK             = 34,
 #endif
     GAMEOBJECT_TYPE_MAX
 };
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define MAX_GAMEOBJECT_TYPE                  35             // sending to client this or greater value can crash client.
+#else
 #define MAX_GAMEOBJECT_TYPE                  31             // sending to client this or greater value can crash client.
+#endif
 
 enum GameObjectFlags
 {
@@ -907,7 +958,10 @@ enum LockKeyType
 {
     LOCK_KEY_NONE  = 0,
     LOCK_KEY_ITEM  = 1,
-    LOCK_KEY_SKILL = 2
+    LOCK_KEY_SKILL = 2,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    LOCK_KEY_SPELL = 3,
+#endif
 };
 
 enum LockType
@@ -958,6 +1012,10 @@ enum CreatureType
     CREATURE_TYPE_MECHANICAL       = 9,
     CREATURE_TYPE_NOT_SPECIFIED    = 10,
     CREATURE_TYPE_TOTEM            = 11,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CREATURE_TYPE_NON_COMBAT_PET   = 12,
+    CREATURE_TYPE_GAS_CLOUD        = 13,
+#endif
 };
 
 uint32 const CREATURE_TYPEMASK_HUMANOID_OR_UNDEAD = (1 << (CREATURE_TYPE_HUMANOID - 1)) | (1 << (CREATURE_TYPE_UNDEAD - 1));
@@ -990,6 +1048,16 @@ enum CreatureFamily
     CREATURE_FAMILY_OWL            = 26,
     CREATURE_FAMILY_WIND_SERPENT   = 27,
     CREATURE_FAMILY_REMOTE_CONTROL = 28,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CREATURE_FAMILY_FELGUARD       = 29,
+    CREATURE_FAMILY_DRAGONHAWK     = 30,
+    CREATURE_FAMILY_RAVAGER        = 31,
+    CREATURE_FAMILY_WARP_STALKER   = 32,
+    CREATURE_FAMILY_SPOREBAT       = 33,
+    CREATURE_FAMILY_NETHER_RAY     = 34,
+    CREATURE_FAMILY_SERPENT        = 35,
+    CREATURE_FAMILY_SEA_LION       = 36,
+#endif
 };
 
 enum CreatureTypeFlags
@@ -1030,10 +1098,16 @@ enum HolidayIds
     HOLIDAY_LUNAR_FESTIVAL           = 327,
     HOLIDAY_LOVE_IS_IN_THE_AIR       = 335,
     HOLIDAY_FIRE_FESTIVAL            = 341,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    HOLIDAY_CALL_TO_ARMS_EY          = 353,
+#endif
     HOLIDAY_BREWFEST                 = 372,
     HOLIDAY_DARKMOON_FAIRE_ELWYNN    = 374,
     HOLIDAY_DARKMOON_FAIRE_THUNDER   = 375,
     HOLIDAY_DARKMOON_FAIRE_SHATTRATH = 376,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    HOLIDAY_PIRATES_DAY              = 398,
+#endif
 };
 
 // Values based on QuestSort.dbc
@@ -1173,11 +1247,20 @@ enum SkillType
     SKILL_PET_RAPTOR               = 217,
     SKILL_PET_TALLSTRIDER          = 218,
     SKILL_RACIAL_UNDED             = 220,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_WEAPON_TALENTS           = 222,
+#endif
     SKILL_CROSSBOWS                = 226,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_SPEARS                   = 227,
+#endif
     SKILL_WANDS                    = 228,
     SKILL_POLEARMS                 = 229,
     SKILL_PET_SCORPID              = 236,
     SKILL_ARCANE                   = 237,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_OPEN_LOCK                = 242,
+#endif
     SKILL_PET_TURTLE               = 251,
     SKILL_ASSASSINATION            = 253,
     SKILL_FURY                     = 256,
@@ -1219,11 +1302,33 @@ enum SkillType
     SKILL_RACIAL_TROLL             = 733,
     SKILL_RACIAL_GNOME             = 753,
     SKILL_RACIAL_HUMAN             = 754,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_JEWELCRAFTING            = 755,
+    SKILL_RACIAL_BLOODELF          = 756,
+#endif
     SKILL_PET_EVENT_RC             = 758,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_LANG_DRAENEI             = 759,
+    SKILL_RACIAL_DRAENEI           = 760,
+    SKILL_PET_FELGUARD             = 761,
+#endif
     SKILL_RIDING                   = 762,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    SKILL_PET_DRAGONHAWK           = 763,
+    SKILL_PET_NETHER_RAY           = 764,
+    SKILL_PET_SPOREBAT             = 765,
+    SKILL_PET_WARP_STALKER         = 766,
+    SKILL_PET_RAVAGER              = 767,
+    SKILL_PET_SERPENT              = 768,
+    SKILL_INTERNAL                 = 769,
+#endif
 };
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#define MAX_SKILL_TYPE               770
+#else
 #define MAX_SKILL_TYPE               763
+#endif
 
 inline SkillType SkillByLockType(LockType locktype)
 {
@@ -1634,14 +1739,19 @@ enum ResponseCodes
     CHAR_CREATE_SERVER_QUEUE,
     CHAR_CREATE_ONLY_EXISTING,
 #endif
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CHAR_CREATE_EXPANSION,
+#endif
     CHAR_DELETE_IN_PROGRESS,
     CHAR_DELETE_SUCCESS,
     CHAR_DELETE_FAILED,
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_7_1
     CHAR_DELETE_FAILED_LOCKED_FOR_TRANSFER,
 #endif
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CHAR_DELETE_FAILED_GUILD_LEADER,
+    CHAR_DELETE_FAILED_ARENA_CAPTAIN,
+#endif
     CHAR_LOGIN_IN_PROGRESS,
     CHAR_LOGIN_SUCCESS,
     CHAR_LOGIN_NO_WORLD,
@@ -1653,7 +1763,9 @@ enum ResponseCodes
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_7_1
     CHAR_LOGIN_LOCKED_FOR_TRANSFER,
 #endif
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CHAR_LOGIN_LOCKED_BY_BILLING,
+#endif
     CHAR_NAME_NO_NAME,
     CHAR_NAME_TOO_SHORT,
     CHAR_NAME_TOO_LONG,
@@ -1668,6 +1780,11 @@ enum ResponseCodes
     CHAR_NAME_CONSECUTIVE_SPACES,
     CHAR_NAME_FAILURE,
     CHAR_NAME_SUCCESS,
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CHAR_NAME_RUSSIAN_CONSECUTIVE_SILENT_CHARACTERS,
+    CHAR_NAME_RUSSIAN_SILENT_CHARACTER_AT_BEGINNING_OR_END,
+    CHAR_NAME_DECLENSION_DOESNT_MATCH_BASE_NAME,
+#endif
 };
 
 /// Ban function modes

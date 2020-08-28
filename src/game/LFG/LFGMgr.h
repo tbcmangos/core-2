@@ -25,6 +25,7 @@
 #ifndef MANGOSSERVER_LFGMGR_H
 #define MANGOSSERVER_LFGMGR_H
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 #include <list>
 #include <map>
 
@@ -123,5 +124,7 @@ class LFGQueue
 };
 
 #define sLFGMgr MaNGOS::Singleton<LFGQueue>::Instance()
+
+#endif
 
 #endif

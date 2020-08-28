@@ -359,7 +359,7 @@ bool Group::AddMember(ObjectGuid guid, char const* name, uint8 joinMethod)
         // quest related GO state dependent from raid membership
         if (isRaidGroup())
             player->UpdateForQuestWorldObjects();
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         if (isInLFG())
         {
             if (joinMethod != GROUP_LFG)
@@ -369,7 +369,7 @@ bool Group::AddMember(ObjectGuid guid, char const* name, uint8 joinMethod)
                 sLFGMgr.UpdateGroup(m_Id);
             }
         }
-
+#endif
         // Cancel instance reset
         Map* map = player->GetMap();
         if (map->IsDungeon())
@@ -404,7 +404,7 @@ uint32 Group::RemoveMember(ObjectGuid guid, uint8 removeMethod)
             {
                 data.Initialize(SMSG_GROUP_UNINVITE, 0);
                 player->GetSession()->SendPacket(&data);
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
                 if (isInLFG())
                 {
                     data.Initialize(SMSG_MEETINGSTONE_SETQUEUE, 5);
@@ -416,8 +416,9 @@ uint32 Group::RemoveMember(ObjectGuid guid, uint8 removeMethod)
                     player->GetSession()->SendMeetingstoneSetqueue(m_LFGAreaId, MEETINGSTONE_STATUS_LOOKING_FOR_NEW_PARTY_IN_QUEUE);
                     sLFGMgr.AddToQueue(player, m_LFGAreaId);
                 }
+#endif
             }
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
             if (removeMethod == GROUP_LEAVE && isInLFG())
             {
                 player->GetSession()->SendMeetingstoneSetqueue(0, MEETINGSTONE_STATUS_NONE);
@@ -426,7 +427,7 @@ uint32 Group::RemoveMember(ObjectGuid guid, uint8 removeMethod)
                 data << m_LFGAreaId << uint8(MEETINGSTONE_STATUS_PARTY_MEMBER_LEFT_LFG);
                 BroadcastPacket(&data, true);
             }
-
+#endif
             //we already removed player from group and in player->GetGroup() is his original group!
             if (Group* group = player->GetGroup())
                 group->SendUpdate();
@@ -445,13 +446,14 @@ uint32 Group::RemoveMember(ObjectGuid guid, uint8 removeMethod)
             WorldPacket data(SMSG_GROUP_SET_LEADER, (m_leaderName.size() + 1));
             data << m_leaderName;
             BroadcastPacket(&data, true);
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
             sLFGMgr.RemoveGroupFromQueue(m_Id);
+#endif
         }
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         if (isInLFG())
             sLFGMgr.UpdateGroup(m_Id);
-
+#endif
         SendUpdate();
     }
     // if group before remove <= 2 disband it
@@ -531,6 +533,7 @@ void Group::Disband(bool hideDestroy)
             data << uint64(0) << uint64(0) << uint64(0);
             player->GetSession()->SendPacket(&data);
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
             if (isInLFG())
             {
                 sLFGMgr.RemoveGroupFromQueue(m_Id);
@@ -540,6 +543,7 @@ void Group::Disband(bool hideDestroy)
 
                 player->GetSession()->SendPacket(&data);
             }
+#endif
         }
 
         _homebindIfInstance(player);
@@ -567,7 +571,7 @@ void Group::Disband(bool hideDestroy)
     m_leaderGuid.Clear();
     m_leaderName.clear();
 }
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 /*********************************************************/
 /***                   LFG SYSTEM                      ***/
 /*********************************************************/
@@ -662,7 +666,7 @@ bool Group::FillPremadeLFG(ObjectGuid const& plrGuid, Classes playerClass, Class
 
     return true;
 }
-
+#endif
 /*********************************************************/
 /***                   LOOT SYSTEM                     ***/
 /*********************************************************/

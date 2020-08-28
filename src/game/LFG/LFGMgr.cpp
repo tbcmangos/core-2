@@ -21,7 +21,7 @@
  * World of Warcraft, and all World of Warcraft or Warcraft art, images,
  * and lore are copyrighted by Blizzard Entertainment, Inc.
  */
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 #include "Policies/SingletonImp.h"
 #include "Common.h"
 #include "ProgressBar.h"
@@ -566,3 +566,4 @@ void LFGQueue::BuildCompletePacket(WorldPacket& data)
 {
     data.Initialize(SMSG_MEETINGSTONE_COMPLETE, 0);
 }
+#endif

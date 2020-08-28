@@ -323,7 +323,7 @@ class Group
         void OfflineReadyCheck();
 
         void RewardGroupAtKill(Unit* pVictim, Player* pPlayerTap);
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         /*********************************************************/
         /***                   LFG SYSTEM                      ***/
         /*********************************************************/
@@ -334,7 +334,7 @@ class Group
 
         void CalculateLFGRoles(LFGGroupQueueInfo& data);
         bool FillPremadeLFG(ObjectGuid const& plrGuid, Classes playerClass, ClassRoles requiredRole, uint32& InitRoles, uint32& DpsCount, std::list<ObjectGuid>& processed);
-
+#endif
         /*********************************************************/
         /***                   LOOT SYSTEM                     ***/
         /*********************************************************/

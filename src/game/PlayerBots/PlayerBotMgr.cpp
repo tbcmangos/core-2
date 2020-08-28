@@ -358,7 +358,11 @@ bool PlayerBotMgr::AddBot(uint32 playerGUID, bool chatBot)
     }
 
     e->state = PB_STATE_LOADING;
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    WorldSession* session = new WorldSession(accountId, nullptr, sAccountMgr.GetSecurity(accountId), 1, 0, LOCALE_enUS);
+#else
     WorldSession* session = new WorldSession(accountId, nullptr, sAccountMgr.GetSecurity(accountId), 0, LOCALE_enUS);
+#endif
     session->SetBot(e);
     sWorld.AddSession(session);
     m_stats.loadingCount++;

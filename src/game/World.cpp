@@ -80,6 +80,7 @@
 #include "AuraRemovalMgr.h"
 #include "InstanceStatistics.h"
 #include "GuardMgr.h"
+#include "Progression.h"
 
 #include <chrono>
 
@@ -512,6 +513,12 @@ void World::LoadConfigSettings(bool reload)
     ///- Read other configuration items from the config file
     setConfig(CONFIG_UINT32_LOGIN_PER_TICK, "LoginPerTick", 0);
     setConfig(CONFIG_UINT32_PLAYER_HARD_LIMIT, "PlayerHardLimit", 0);
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    if (configNoReload(reload, CONFIG_UINT32_EXPANSION, "Expansion", MAX_EXPANSION))
+        setConfigMinMax(CONFIG_UINT32_EXPANSION, "Expansion", MAX_EXPANSION, 0, MAX_EXPANSION);
+#endif
+
     setConfig(CONFIG_UINT32_LOGIN_QUEUE_GRACE_PERIOD_SECS, "LoginQueue.GracePeriodSecs", 0);
     setConfig(CONFIG_UINT32_CHARACTER_SCREEN_MAX_IDLE_TIME, "CharacterScreenMaxIdleTime", 0);
     setConfig(CONFIG_UINT32_ASYNC_QUERIES_TICK_TIMEOUT, "AsyncQueriesTickTimeout", 0);

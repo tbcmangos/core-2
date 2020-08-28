@@ -274,9 +274,14 @@ class WorldSession
 {
     friend class CharacterHandler;
     public:
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        WorldSession(uint32 id, WorldSocket *sock, AccountTypes sec, uint8 expansion, time_t mute_time, LocaleConstant locale);
+        ~WorldSession();
+#else
         WorldSession(uint32 id, WorldSocket *sock, AccountTypes sec, time_t mute_time, LocaleConstant locale);
         ~WorldSession();
-
+#endif
+        
         bool PlayerLoading() const { return m_playerLoading; }
         bool PlayerLogout() const { return m_playerLogout; }
         bool PlayerLogoutWithSave() const { return m_playerLogout && m_playerSave; }

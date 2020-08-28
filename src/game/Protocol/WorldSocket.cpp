@@ -179,11 +179,20 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     "a.locked, "                   //4
     "a.v, "                        //5
     "a.s, "                        //6
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    "a.expansion, "                //7
+    "a.mutetime, "                 //8
+    "a.locale, "                   //9
+    "a.os, "                       //10
+    "a.flags, "                    //11
+    "ab.unbandate > UNIX_TIMESTAMP() OR ab.unbandate = ab.bandate " //12
+#else
     "a.mutetime, "                 //7
     "a.locale, "                   //8
     "a.os, "                       //9
     "a.flags, "                    //10
     "ab.unbandate > UNIX_TIMESTAMP() OR ab.unbandate = ab.bandate " //11
+#endif
     " FROM account a LEFT JOIN account_access aa ON a.id = aa.id AND aa.RealmID IN (-1, %u) "
     "LEFT JOIN account_banned ab ON a.id = ab.id AND ab.active = 1 WHERE a.username = '%s' ORDER BY aa.RealmID DESC LIMIT 1", realmID, safe_account.c_str());
 
@@ -237,6 +246,17 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     if (security > SEC_ADMINISTRATOR)                       // prevent invalid security settings in DB
         security = SEC_ADMINISTRATOR;
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    uint8 maxServerExpansion = MAX_EXPANSION;
+    uint8 currentServerExpansion = sWorld.getConfig(CONFIG_UINT32_EXPANSION);
+    uint8 playerAddonLevel = fields[7].GetUInt8();
+    uint8 expansion;
+    if (security >= SEC_GAMEMASTER)
+        expansion = std::min(playerAddonLevel, maxServerExpansion);
+    else
+        expansion = std::min(playerAddonLevel, currentServerExpansion);
+#endif
+
     K.SetHexStr(fields[2].GetString());
 
     if (K.AsByteArray().empty())
@@ -245,7 +265,18 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
         return -1;
     }
 
-    time_t mutetime = time_t (fields[7].GetUInt64());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    time_t mutetime = time_t (fields[8].GetUInt64());
+
+    locale = LocaleConstant(fields[9].GetUInt8());
+    if (locale >= MAX_LOCALE)
+        locale = LOCALE_enUS;
+    os = fields[10].GetString();
+    uint32 accFlags = fields[11].GetUInt32();
+    bool isBanned = fields[12].GetBool();
+    delete result;
+#else
+    time_t mutetime = time_t(fields[7].GetUInt64());
 
     locale = LocaleConstant(fields[8].GetUInt8());
     if (locale >= MAX_LOCALE)
@@ -254,7 +285,7 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     uint32 accFlags = fields[10].GetUInt32();
     bool isBanned = fields[11].GetBool();
     delete result;
-
+#endif
     
     if (isBanned || sAccountMgr.IsIPBanned(GetRemoteAddress()))
     {
@@ -329,7 +360,11 @@ int WorldSocket::HandleAuthSession(WorldPacket& recvPacket)
     }
 
     // NOTE ATM the socket is single-threaded, have this in mind ...
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    ACE_NEW_RETURN(m_Session, WorldSession(id, this, AccountTypes(security), expansion, mutetime, locale), -1);
+#else
     ACE_NEW_RETURN(m_Session, WorldSession(id, this, AccountTypes(security), mutetime, locale), -1);
+#endif
 
     m_Crypt.SetKey(K.AsByteArray());
     m_Crypt.Init();

@@ -39,11 +39,14 @@ class AuthCrypt
         static size_t const CRYPTED_SEND_LEN = 4;
         static size_t const CRYPTED_RECV_LEN = 6;
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void Init(BigNumber* K);
+#else
         void Init();
 
         void SetKey(std::vector<uint8> const& key);
         void SetKey(uint8* key, size_t len);
-
+#endif
         void DecryptRecv(uint8*, size_t);
         void EncryptSend(uint8*, size_t);
 

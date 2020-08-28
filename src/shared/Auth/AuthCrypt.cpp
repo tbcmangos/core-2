@@ -23,19 +23,42 @@
  */
 
 #include "AuthCrypt.h"
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+#include "HMACSHA1.h"
+#include "BigNumber.h"
+#else
 #include "Hmac.h"
+#endif
 
 AuthCrypt::AuthCrypt()
 {
     _initialized = false;
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void AuthCrypt::Init(BigNumber* K)
+{
+    uint8* key = new uint8[SHA_DIGEST_LENGTH];
+    uint8 recvSeed[SEED_KEY_SIZE] = { 0x38, 0xA7, 0x83, 0x15, 0xF8, 0x92, 0x25, 0x30, 0x71, 0x98, 0x67, 0xB1, 0x8C, 0x4, 0xE2, 0xAA };
+    HMACSHA1 recvHash(SEED_KEY_SIZE, (uint8*)recvSeed);
+    recvHash.UpdateBigNumber(K);
+    recvHash.Finalize();
+    memcpy(key, recvHash.GetDigest(), SHA_DIGEST_LENGTH);
+    _key.resize(SHA_DIGEST_LENGTH);
+    std::copy(key, key + SHA_DIGEST_LENGTH, _key.begin());
+    delete[] key;
+
+    _send_i = _send_j = _recv_i = _recv_j = 0;
+    _initialized = true;
+}
+
+#else
 void AuthCrypt::Init()
 {
     _send_i = _send_j = _recv_i = _recv_j = 0;
     _initialized = true;
 }
-
+#endif
 void AuthCrypt::DecryptRecv(uint8* data, size_t len)
 {
     if (!_initialized) { return; }
@@ -65,6 +88,7 @@ void AuthCrypt::EncryptSend(uint8* data, size_t len)
     }
 }
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 void AuthCrypt::SetKey(std::vector<uint8> const& key)
 {
     //MANGOS_ASSERT(key.size());
@@ -82,12 +106,13 @@ void AuthCrypt::SetKey(uint8* key, size_t len)
     if (_key.empty())
         _key.resize(1);
 }
-
+#endif
 
 AuthCrypt::~AuthCrypt()
 {
 }
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 void AuthCrypt::GenerateKey(uint8* key, BigNumber* bn)
 {
     HmacHash hash;
@@ -95,3 +120,4 @@ void AuthCrypt::GenerateKey(uint8* key, BigNumber* bn)
     hash.Finalize();
     memcpy(key, hash.GetDigest(), SHA_DIGEST_LENGTH);
 }
+#endif

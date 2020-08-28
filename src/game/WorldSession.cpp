@@ -78,11 +78,11 @@ bool MapSessionFilter::Process(WorldPacket* packet)
 /// WorldSession constructor
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
 WorldSession::WorldSession(uint32 id, WorldSocket *sock, AccountTypes sec, uint8 expansion, time_t mute_time, LocaleConstant locale) :
-    m_muteTime(mute_time),
+    LookingForGroup_auto_join(false), LookingForGroup_auto_add(false), m_muteTime(mute_time),
     _pcktReading(nullptr), _pcktWriting(nullptr), _pcktRecvDump(nullptr), _pcktDumpFlags(0), _pcktReadSpeedRate(1.0f),
     _pcktReadTimer(0), _pcktReadLastUpdate(0), m_connected(true), m_disconnectTimer(0), m_who_recvd(false),
     m_ah_list_recvd(false), _scheduleBanLevel(0),
-    _accountFlags(0), m_idleTime(WorldTimer::getMSTime()), _player(nullptr), m_Socket(sock), _security(sec), _accountId(id), _logoutTime(0), m_inQueue(false),
+    _accountFlags(0), m_idleTime(WorldTimer::getMSTime()), _player(nullptr), m_Socket(sock), _security(sec), _accountId(id), m_expansion(expansion), _logoutTime(0), m_inQueue(false),
     m_playerLoading(false), m_playerLogout(false), m_playerRecentlyLogout(false), m_playerSave(false), m_sessionDbcLocale(sWorld.GetAvailableDbcLocale(locale)),
     m_sessionDbLocaleIndex(sObjectMgr.GetIndexForLocale(locale)), m_latency(0), m_tutorialState(TUTORIALDATA_UNCHANGED), m_warden(nullptr), m_cheatData(nullptr),
     m_bot(nullptr), m_lastReceivedPacketTime(0), _clientOS(CLIENT_OS_UNKNOWN), _gameBuild(0),
@@ -534,8 +534,12 @@ void WorldSession::ProcessPackets(PacketFilter& updater)
 
                     // single from authed time opcodes send in to after logout time
                     // and before other STATUS_LOGGEDIN_OR_RECENTLY_LOGGOUT opcodes.
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+                    if (packet->GetOpcode() != CMSG_SET_ACTIVE_VOICE_CHANNEL)
+                        m_playerRecentlyLogout = false;
+#else
                     m_playerRecentlyLogout = false;
-
+#endif
                     ExecuteOpcode(opHandle, packet);
                     break;
                 case STATUS_NEVER:

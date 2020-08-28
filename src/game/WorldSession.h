@@ -59,7 +59,15 @@ class MasterPlayer;
 
 struct OpcodeHandler;
 struct PlayerBotEntry;
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+struct DeclinedName;
+#define MAX_DECLINED_NAME_CASES 5
 
+struct DeclinedName
+{
+    std::string name[MAX_DECLINED_NAME_CASES];
+};
+#endif
 enum ClientOSType
 {
     CLIENT_OS_UNKNOWN,
@@ -78,6 +86,17 @@ enum PartyResult
     ERR_PARTY_RESULT_OK                 = 0,
     ERR_BAD_PLAYER_NAME_S               = 1,    // "Cannot find '%s'."
     ERR_TARGET_NOT_IN_GROUP_S           = 2,    // "%s is not in your party."
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    ERR_TARGET_NOT_IN_INSTANCE_S = 3,
+    ERR_GROUP_FULL = 4,
+    ERR_ALREADY_IN_GROUP_S = 5,
+    ERR_NOT_IN_GROUP = 6,
+    ERR_NOT_LEADER = 7,
+    ERR_PLAYER_WRONG_FACTION = 8,
+    ERR_IGNORING_YOU_S = 9,
+    ERR_LFG_PENDING = 12,
+    ERR_INVITE_RESTRICTED = 13,
+#else
     ERR_GROUP_FULL                      = 3,    // "Your party is full."
     ERR_ALREADY_IN_GROUP_S              = 4,    // "%s is already in a group."
     ERR_NOT_IN_GROUP                    = 5,    // "You aren't in a party."
@@ -85,7 +104,34 @@ enum PartyResult
     ERR_PLAYER_WRONG_FACTION            = 7,
     ERR_IGNORING_YOU_S                  = 8,    // "%s is ignoring you."
     ERR_INTERNAL_BATTLEGROUND           = 10,   // Does not exist client-side
+#endif
+
 };
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+enum LfgMode
+{
+    LFG_MODE = 0,
+    LFM_MODE = 1,
+};
+
+enum LfgType
+{
+    LFG_TYPE_NONE = 0,
+    LFG_TYPE_DUNGEON = 1,
+    LFG_TYPE_RAID = 2,
+    LFG_TYPE_QUEST = 3,
+    LFG_TYPE_ZONE = 4,
+    LFG_TYPE_HEROIC_DUNGEON = 5
+};
+
+enum ChatRestrictionType
+{
+    ERR_CHAT_RESTRICTED = 0,
+    ERR_CHAT_THROTTLED = 1,
+    ERR_USER_SQUELCHED = 2,
+};
+#endif
 
 #define ACCOUNT_TUTORIALS_COUNT 8
 
@@ -293,7 +339,13 @@ class WorldSession
         void SendPacket(WorldPacket const* packet);
         void SendNotification(char const* format,...) ATTR_PRINTF(2,3);
         void SendNotification(int32 string_id,...);
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void SendPetNameInvalid(uint32 error, const std::string& name, DeclinedName* declinedName); //TODO
+        void SendLfgResult(LfgType type, uint32 entry, LfgMode mode);
+        uint8 Expansion() const { return m_expansion; }
+#else
         void SendPetNameInvalid(uint32 error, std::string const& name);
+#endif
         void SendPartyResult(PartyOperation operation, std::string const& member, PartyResult res);
 
 // used by eluna
@@ -415,6 +467,12 @@ class WorldSession
         void SendAuctionRemovedNotification(AuctionEntry* auction);
         void SendAuctionOutbiddedMail(AuctionEntry* auction);
         void SendAuctionCancelledToBidderMail(AuctionEntry* auction);
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void BuildListAuctionItems(std::vector<AuctionEntry*> const& auctions, WorldPacket& data, std::wstring const& searchedname, uint32 listfrom, uint32 levelmin,
+            uint32 levelmax, uint32 usable, uint32 inventoryType, uint32 itemClass, uint32 itemSubClass, uint32 quality, uint32& count, uint32& totalcount, bool isFull);
+#endif
+
         AuctionHouseEntry const* GetCheckedAuctionHouseForAuctioneer(ObjectGuid guid);
 
         //Item Enchantment
@@ -431,12 +489,16 @@ class WorldSession
         void SendGuildCommandResult(uint32 typecmd, std::string const& str, uint32 cmdresult);
         void SendPetitionShowList(ObjectGuid& guid);
         void SendSaveGuildEmblem(uint32 msg);
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
+        void SendBattleGroundOrArenaJoinError(uint8 err);
+#else
         void SendBattleGroundJoinError(uint8 err);
-
+#endif
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         // Meetingstone
         void SendMeetingstoneFailed(uint8 status);
         void SendMeetingstoneSetqueue(uint32 areaid, uint8 status);
-
+#endif
         void BuildPartyMemberStatsChangedPacket(Player* player, WorldPacket* data);
         void BuildPartyMemberStatsPacket(Player* player, WorldPacket* data, uint32 updateMask, bool sendAllAuras);
 
@@ -582,7 +644,9 @@ class WorldSession
         void HandleMoveTimeSkippedOpcode(WorldPacket& recv_data);
         void HandleMovementFlagChangeToggleAck(WorldPacket& recvData);
         void HandleMoveSplineDoneOpcode(WorldPacket& recvPacket);
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         void HandleMoveSetRawPosition(WorldPacket& recv_data);
+#endif
         void HandleWorldTeleportOpcode(WorldPacket& recv_data);
         void HandleMountSpecialAnimOpcode(WorldPacket& recvdata);
 
@@ -645,8 +709,10 @@ class WorldSession
         void HandleSetActionButtonOpcode(WorldPacket& recvPacket);
 
         void HandleGameObjectUseOpcode(WorldPacket& recPacket);
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
         void HandleMeetingStoneJoinOpcode(WorldPacket& recPacket);
         void HandleMeetingStoneLeaveOpcode(WorldPacket& recPacket);
+#endif
         void HandleMeetingStoneInfoOpcode(WorldPacket& recPacket);
 
         void HandleNameQueryOpcode(WorldPacket& recvPacket);
@@ -817,7 +883,11 @@ class WorldSession
         static bool IsLanguageAllowedForChatType(uint32 lang, uint32 msgType);
         void SendPlayerNotFoundNotice(std::string const& name);
         void SendWrongFactionNotice();
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void SendChatRestrictedNotice(ChatRestrictionType restriction);
+#else
         void SendChatRestrictedNotice();
+#endif
         void HandleMessagechatOpcode(WorldPacket& recvPacket);
         void HandleTextEmoteOpcode(WorldPacket& recvPacket);
         void HandleChatIgnoredOpcode(WorldPacket& recvPacket);
@@ -892,7 +962,70 @@ class WorldSession
         void HandleAreaSpiritHealerQueryOpcode(WorldPacket& recv_data);
         void HandleAreaSpiritHealerQueueOpcode(WorldPacket& recv_data);
         void HandleSelfResOpcode(WorldPacket& recv_data);
-        
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void SendArenaTeamCommandResult(uint32 team_action, const std::string& team, const std::string& player, uint32 error_id);
+        void SendNotInArenaTeamPacket(uint8 type);
+
+        // Looking For Group
+        // TRUE values set by client sending CMSG_LFG_SET_AUTOJOIN and CMSG_LFM_CLEAR_AUTOFILL before player login
+        bool LookingForGroup_auto_join;
+        bool LookingForGroup_auto_add;
+
+        void HandleLookingForGroup(WorldPacket& recvPacket);
+
+        void HandleSetPlayerDeclinedNamesOpcode(WorldPacket& recv_data);
+
+        void HandleBattlemasterJoinArena(WorldPacket& recv_data);
+        void HandleReportPvPAFK(WorldPacket& recv_data);
+
+        void HandleSetLfgOpcode(WorldPacket& recv_data);
+        void HandleSetDungeonDifficultyOpcode(WorldPacket& recv_data);
+        void HandleMoveSetCanFlyAckOpcode(WorldPacket& recv_data);
+        void HandleLfgSetAutoJoinOpcode(WorldPacket& recv_data);
+        void HandleLfgClearAutoJoinOpcode(WorldPacket& recv_data);
+        void HandleLfmSetAutoFillOpcode(WorldPacket& recv_data);
+        void HandleLfmClearAutoFillOpcode(WorldPacket& recv_data);
+        void HandleLfgClearOpcode(WorldPacket& recv_data);
+        void HandleLfmClearOpcode(WorldPacket& recv_data);
+        void HandleSetLfmOpcode(WorldPacket& recv_data);
+        void HandleSetLfgCommentOpcode(WorldPacket& recv_data);
+        void HandleSetTitleOpcode(WorldPacket& recv_data);
+        void HandleRealmSplitOpcode(WorldPacket& recv_data);
+        void HandleTimeSyncResp(WorldPacket& recv_data);
+        // Arena Team
+        void HandleInspectArenaTeamsOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamQueryOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamRosterOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamInviteOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamAcceptOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamDeclineOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamLeaveOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamRemoveOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamDisbandOpcode(WorldPacket& recv_data);
+        void HandleArenaTeamLeaderOpcode(WorldPacket& recv_data);
+
+        void HandleComplainOpcode(WorldPacket& recv_data);
+        // Socket gem
+        void HandleSocketOpcode(WorldPacket& recv_data);
+        void HandleChannelVoiceOnOpcode(WorldPacket& recv_data);
+        void HandleVoiceSessionEnableOpcode(WorldPacket& recv_data);
+        void HandleSetActiveVoiceChannel(WorldPacket& recv_data);
+        // Guild Bank
+        void HandleGuildPermissions(WorldPacket& recv_data);
+        void HandleGuildBankMoneyWithdrawn(WorldPacket& recv_data);
+        void HandleGuildBankerActivate(WorldPacket& recv_data);
+        void HandleGuildBankQueryTab(WorldPacket& recv_data);
+        void HandleGuildBankLogQuery(WorldPacket& recv_data);
+        void HandleGuildBankDepositMoney(WorldPacket& recv_data);
+        void HandleGuildBankWithdrawMoney(WorldPacket& recv_data);
+        void HandleGuildBankSwapItems(WorldPacket& recv_data);
+        void HandleGuildBankUpdateTab(WorldPacket& recv_data);
+        void HandleGuildBankBuyTab(WorldPacket& recv_data);
+        void HandleQueryGuildBankTabText(WorldPacket& recv_data);
+        void HandleSetGuildBankTabText(WorldPacket& recv_data);
+
+        void HandleGetMirrorimageData(WorldPacket& recv_data);
+#endif
     private:
         // private trade methods
         void moveItems(Item* myItems[], Item* hisItems[]);
@@ -917,7 +1050,9 @@ class WorldSession
 
         AccountTypes _security;
         uint32 _accountId;
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        uint8 m_expansion;
+#endif
         time_t _logoutTime;
         bool m_inQueue;                                     // session wait in auth.queue
         bool m_playerLoading;                               // code processed in LoginPlayer

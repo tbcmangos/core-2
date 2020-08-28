@@ -37,7 +37,7 @@
 #endif /* ENABLE_ELUNA */
 
 INSTANTIATE_SINGLETON_1(WeatherMgr);
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 /// Weather sound defines ( only for 1.12 )
 enum WeatherSounds
 {
@@ -52,7 +52,7 @@ enum WeatherSounds
     WEATHER_SANDSTORMMEDIUM        = 8557,
     WEATHER_SANDSTORMHEAVY         = 8558
 };
-
+#endif
 /// Create the Weather object
 Weather::Weather(uint32 zone, WeatherZoneChances const* weatherChances) :
     m_zone(zone),
@@ -215,12 +215,18 @@ void Weather::SendWeatherUpdateToPlayer(Player* player)
 {
     NormalizeGrade();
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    WorldPacket data(SMSG_WEATHER, 4 + 4 + 1);
+    data << uint32(GetWeatherState());
+    data << float(m_grade);
+    data << uint8(0);           // 1 = instant change, 0 = smooth change
+#else
     WorldPacket data(SMSG_WEATHER, 4 + 4 + 4 + 1);
     data << uint32(m_type);
     data << float(m_grade);
     data << uint32(GetSound()); // 1.12 soundid
     data << uint8(0);           // 1 = instant change, 0 = smooth change
-
+#endif
     player->GetSession()->SendPacket(&data);
 }
 
@@ -228,13 +234,20 @@ void Weather::SendWeatherUpdateToPlayer(Player* player)
 bool Weather::SendWeatherForPlayersInZone(Map const* _map)
 {
     NormalizeGrade();
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    WeatherState state = GetWeatherState();
 
+    WorldPacket data(SMSG_WEATHER, 4 + 4 + 1);
+    data << uint32(state);
+    data << float(m_grade);
+    data << uint8(0);           // 1 = instant change, 0 = smooth change
+#else
     WorldPacket data(SMSG_WEATHER, 4 + 4 + 4 + 1);
     data << uint32(m_type);
     data << float(m_grade);
     data << uint32(GetSound()); // 1.12 soundid
     data << uint8(0);           // 1 = instant change, 0 = smooth change
-
+#endif
     ///- Send the weather packet to all players in this zone
     if (!_map->SendToPlayersInZone(&data, m_zone))
         return false;
@@ -291,6 +304,10 @@ WeatherState Weather::GetWeatherState() const
                 return WEATHER_STATE_MEDIUM_SANDSTORM;
             else
                 return WEATHER_STATE_HEAVY_SANDSTORM;
+        case WEATHER_TYPE_BLACKRAIN:
+            return WEATHER_STATE_BLACKRAIN;
+        case WEATHER_TYPE_THUNDERS:
+            return WEATHER_STATE_THUNDERS;
         case WEATHER_TYPE_FINE:
         default:
             return WEATHER_STATE_FINE;
@@ -328,6 +345,12 @@ void Weather::LogWeatherState(WeatherState state) const
             break;
         case WEATHER_STATE_HEAVY_SNOW:
             wthstr = "heavy snow";
+            break;
+        case WEATHER_STATE_THUNDERS:
+            wthstr = "thunders";
+            break;
+        case WEATHER_STATE_BLACKRAIN:
+            wthstr = "black rain";
             break;
         case WEATHER_STATE_LIGHT_SANDSTORM:
             wthstr = "light sandstorm";
@@ -394,6 +417,7 @@ void WeatherSystem::UpdateWeathers(uint32 diff)
     }
 }
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 /// Get the sound number associated with the current weather
 uint32 Weather::GetSound()
 {
@@ -437,6 +461,7 @@ uint32 Weather::GetSound()
     }
     return sound;
 }
+#endif
 
 /// Load Weather chanced from table game_weather
 void WeatherMgr::LoadWeatherZoneChances()

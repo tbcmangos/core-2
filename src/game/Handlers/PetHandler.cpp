@@ -505,13 +505,21 @@ void WorldSession::HandlePetRename(WorldPacket& recv_data)
     PetNameInvalidReason res = ObjectMgr::CheckPetName(name);
     if (res != PET_NAME_SUCCESS)
     {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        SendPetNameInvalid(res, name, NULL);
+#else
         SendPetNameInvalid(res, name);
+#endif
         return;
     }
 
     if (sObjectMgr.IsReservedName(name))
     {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        SendPetNameInvalid(PET_NAME_RESERVED, name, NULL);
+#else
         SendPetNameInvalid(PET_NAME_RESERVED, name);
+#endif
         return;
     }
 
@@ -728,8 +736,28 @@ void WorldSession::HandlePetCastSpellOpcode(WorldPacket& recvPacket)
     }
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::SendPetNameInvalid(uint32 error, const std::string& name, DeclinedName* declinedName)
+{
+    WorldPacket data(SMSG_PET_NAME_INVALID, 4 + name.size() + 1 + 1);
+    data << uint32(error);
+    data << name;
+    if (declinedName)
+    {
+        data << uint8(1);
+        for (uint32 i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
+        {
+            data << declinedName->name[i];
+        }
+    }
+    else
+        data << uint8(0);
+    SendPacket(&data);
+}
+#else
 void WorldSession::SendPetNameInvalid(uint32 error, std::string const& name)
 {
     WorldPacket data(SMSG_PET_NAME_INVALID, 0);
     SendPacket(&data);
 }
+#endif

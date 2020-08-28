@@ -38,6 +38,16 @@
 #include "LFGHandler.h"
 #include "LFGMgr.h"
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::HandleMeetingStoneInfoOpcode(WorldPacket& /*recv_data*/)
+{
+    DEBUG_LOG("WORLD: Received CMSG_MEETING_STONE_INFO");
+
+    WorldPacket data(SMSG_MEETINGSTONE_SETQUEUE, 5);
+    data << uint32(0) << uint8(6);
+    SendPacket(&data);
+}
+#else
 void WorldSession::HandleMeetingStoneJoinOpcode(WorldPacket& recv_data)
 {
     ObjectGuid guid;
@@ -149,3 +159,5 @@ void WorldSession::SendMeetingstoneSetqueue(uint32 areaid, uint8 status)
     data << uint8(status);
     SendPacket(&data);
 }
+
+#endif

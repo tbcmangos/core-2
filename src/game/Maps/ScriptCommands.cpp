@@ -1135,10 +1135,10 @@ bool Map::ScriptCommand_MeetingStone(ScriptInfo const& script, WorldObject* sour
         sLog.outError("SCRIPT_COMMAND_MEETINGSTONE (script id %u) call for a nullptr or non-player source and target (TypeIdSource: %u)(TypeIdTarget: %u), skipping.", script.id, source ? source->GetTypeId() : 0, target ? target->GetTypeId() : 0);
         return ShouldAbortScript(script);
     }
-
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
     if (!sLFGMgr.IsPlayerInQueue(pPlayer->GetObjectGuid()))
         sLFGMgr.AddToQueue(pPlayer, script.meetingstone.areaId);
-
+#endif
     return false;
 }
 

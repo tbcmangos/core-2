@@ -536,11 +536,21 @@ enum TradeSlots
 
 enum TransferAbortReason
 {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    TRANSFER_ABORT_NONE = 0x00,
+    TRANSFER_ABORT_MAX_PLAYERS = 0x01,     // Transfer Aborted: instance is full
+    TRANSFER_ABORT_NOT_FOUND = 0x02,     // Transfer Aborted: instance not found
+    TRANSFER_ABORT_TOO_MANY_INSTANCES = 0x03,     // You have entered too many instances recently.
+    TRANSFER_ABORT_ZONE_IN_COMBAT = 0x05,     // Unable to zone in while an encounter is in progress.
+    TRANSFER_ABORT_INSUF_EXPAN_LVL = 0x06,     // You must have TBC expansion installed to access this area.
+    TRANSFER_ABORT_DIFFICULTY = 0x07,     // <Normal,Heroic,Epic> difficulty mode is not available for %s.
+#else
     TRANSFER_ABORT_MAX_PLAYERS                  = 0x01,     // Transfer Aborted: instance is full
     TRANSFER_ABORT_NOT_FOUND                    = 0x02,     // Transfer Aborted: instance not found
     TRANSFER_ABORT_TOO_MANY_INSTANCES           = 0x03,     // You have entered too many instances recently.
     TRANSFER_ABORT_SILENTLY                     = 0x04,     // no message shown; the same effect give values above 5
     TRANSFER_ABORT_ZONE_IN_COMBAT               = 0x05,     // Unable to zone in while an encounter is in progress.
+#endif
 };
 
 enum InstanceResetWarningType
@@ -2454,7 +2464,11 @@ class Player final: public Unit
         bool   m_smartInstanceRebind;
         uint32 m_HomebindTimer;
     public:
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        void SendTransferAborted(uint8 reason, uint8 arg = 0) const;
+#else
         void SendTransferAborted(uint8 reason) const;
+#endif
         void SendInstanceResetWarning(uint32 mapid, uint32 time) const;
 
         void ResetInstances(InstanceResetMethod method);

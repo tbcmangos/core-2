@@ -1151,6 +1151,7 @@ void WorldSession::HandleWorldTeleportOpcode(WorldPacket& recv_data)
     DEBUG_LOG("Received worldport command from player %s", GetPlayer()->GetName());
 }
 
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
 void WorldSession::HandleMoveSetRawPosition(WorldPacket& recv_data)
 {
     DEBUG_LOG("WORLD: Received opcode CMSG_MOVE_SET_RAW_POSITION from %s", GetPlayer()->GetGuidStr().c_str());
@@ -1171,6 +1172,7 @@ void WorldSession::HandleMoveSetRawPosition(WorldPacket& recv_data)
     else
         SendNotification(LANG_YOU_NOT_HAVE_PERMISSION);
 }
+#endif
 
 void WorldSession::HandleWhoisOpcode(WorldPacket& recv_data)
 {

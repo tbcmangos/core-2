@@ -907,6 +907,14 @@ void WorldSession::SendWrongFactionNotice()
     SendPacket(&data);
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::SendChatRestrictedNotice(ChatRestrictionType restriction)
+{
+    WorldPacket data(SMSG_CHAT_RESTRICTED, 1);
+    data << uint8(restriction);
+    SendPacket(&data);
+}
+#else
 void WorldSession::SendChatRestrictedNotice()
 {
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_8_4
@@ -914,3 +922,4 @@ void WorldSession::SendChatRestrictedNotice()
     SendPacket(&data);
 #endif
 }
+#endif

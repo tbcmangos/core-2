@@ -18935,12 +18935,34 @@ void Player::SendUpdateToOutOfRangeGroupMembers()
         pet->ResetAuraUpdateMask();
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void Player::SendTransferAborted(uint8 reason, uint8 arg) const
+{
+    WorldPacket data(SMSG_TRANSFER_ABORTED, 4 + 2);
+    data << uint32(GetMap()->GetId());
+    data << uint8(reason);                                  // transfer abort reason
+    switch (reason)
+    {
+    case TRANSFER_ABORT_INSUF_EXPAN_LVL:
+    case TRANSFER_ABORT_DIFFICULTY:
+        data << uint8(arg);
+        break;
+    default:                                            // possible not neaded (absent in 0.13, but add at backport for safe)
+        data << uint8(0);
+        break;
+    }
+    GetSession()->SendPacket(&data);
+}
+#else
 void Player::SendTransferAborted(uint8 reason) const
 {
     WorldPacket data(SMSG_TRANSFER_ABORTED, 1);
     data << uint8(reason);                                  // transfer abort reason
     GetSession()->SendPacket(&data);
 }
+
+#endif
+
 
 void Player::SendInstanceResetWarning(uint32 mapid, uint32 _time) const
 {
@@ -19972,7 +19994,14 @@ PartyResult Player::CanUninviteFromGroup(ObjectGuid uninvitedGuid) const
         return ERR_NOT_LEADER;
 
     if (InBattleGround())
+    {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        return ERR_INVITE_RESTRICTED;
+#else
         return ERR_INTERNAL_BATTLEGROUND;
+#endif
+    }
+       
 
     return ERR_PARTY_RESULT_OK;
 }

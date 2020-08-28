@@ -501,6 +501,36 @@ CharSectionsEntry const* GetCharSectionEntry(uint8 race, CharSectionType genType
     return nullptr;
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+uint32 GetVirtualMapForMapAndZone(uint32 mapid, uint32 zoneId)
+{
+    if (mapid != 530)                                       // speed for most cases
+        return mapid;
+
+    if (WorldMapAreaEntry const* wma = sWorldMapAreaStore.LookupEntry(zoneId))
+        return wma->virtual_map_id >= 0 ? wma->virtual_map_id : wma->map_id;
+
+    return mapid;
+}
+
+ContentLevels GetContentLevelsForMapAndZone(uint32 mapid, uint32 zoneId)
+{
+    mapid = GetVirtualMapForMapAndZone(mapid, zoneId);
+    if (mapid < 2)
+        return CONTENT_1_60;
+
+    MapEntry const* mapEntry = sMapStorage.LookupEntry<MapEntry>(mapid);
+    if (!mapEntry)
+        return CONTENT_1_60;
+
+    switch (mapEntry->Expansion())
+    {
+    default: return CONTENT_1_60;
+    case 1:  return CONTENT_61_70;
+    }
+}
+#endif
+
 ChatChannelsEntry const* GetChannelEntryFor(uint32 channel_id)
 {
     // not sorted, numbering index from 0

@@ -13,3 +13,6 @@
  - SQLStorages.cpp has the database strictire in string format, the entry also has to be same sequence as teh fmt
  
  - realmlist.cpp has 8608 client support with hash data, has to disable the strictversioncheck in realmd.conf
+ 
+# Knowledge
+ - Knowledge 0b1db35f replace authcrypt with BigNumber, this fixed the wrong package size issue, now able to login to the char create screen, looks like the classic and tbc are using different crypt method?

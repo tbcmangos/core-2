@@ -1,0 +1,27 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: befor install
+      run: |
+          sudo apt-get -qq install libmysql++-dev libace-dev libtbb-dev libcurl4-openssl-dev
+          sudo apt-get -qq install cmake build-essential cppcheck git make binutils-dev libiberty-dev openssl libssl-dev
+    - uses: actions/checkout@v2
+    - name: Build & install
+      run: |
+        mkdir build
+        mkdir _install
+        cd build
+        cmake -DSUPPORTED_CLIENT_BUILD='CLIENT_BUILD_2_4_3' -DDEBUG=0 -DUSE_LIBCURL=1 .. 
+        make -j2
+        make install

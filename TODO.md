@@ -16,3 +16,11 @@
  
 # Knowledge
  - Knowledge 0b1db35f replace authcrypt with BigNumber, this fixed the wrong package size issue, now able to login to the char create screen, looks like the classic and tbc are using different crypt method?
+ 
+ 
+# 
+ - CharacterHandler.cpp
+ - CMSG_CHAR_ENUM
+ - SMSG_CHAR_ENUM
+ - Player.cpp
+ - BuildEnumData see 6aaf0e35 fix load character error, BuildEnumData should be in correct length

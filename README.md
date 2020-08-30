@@ -1,4 +1,9 @@
 [![Build Status](https://travis-ci.com/tbcmangos/core-2.svg?branch=development)](https://travis-ci.com/tbcmangos/core-2)
+# Readme
+
+This is just an educational project, if you happen to reach here dont waste your time.
+
+but you are welcome to stay and do stuff, if you wish to adding more changes, just compare the difference between mangoszero and mangosone and add changes as reference.
 
 # Progressive Vanilla
 This project is an independent continuation of the Elysium / LightsHope codebases, focused on delivering the most complete and accurate content progression system possible, including support for the patch appropriate game clients.

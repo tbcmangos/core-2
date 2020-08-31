@@ -5,6 +5,10 @@ This is just an educational project, if you happen to reach here dont waste your
 
 but you are welcome to stay and do stuff, if you wish to adding more changes, just compare the difference between mangoszero and mangosone and add changes as reference.
 
+#current progress
+
+![20200830](https://github.com/tbcmangos/core-2/blob/master/progress/20200830.jpg)
+
 # Progressive Vanilla
 This project is an independent continuation of the Elysium / LightsHope codebases, focused on delivering the most complete and accurate content progression system possible, including support for the patch appropriate game clients.
 

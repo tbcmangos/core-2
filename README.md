@@ -7,7 +7,9 @@ but you are welcome to stay and do stuff, if you wish to adding more changes, ju
 
 #current progress
 
-![20200830](https://github.com/tbcmangos/core-2/blob/master/progress/20200830.jpg)
+- 20200830 character enum ok, able to create/delete characters, login will crash
+
+![20200830](https://github.com/tbcmangos/core-2/blob/development/progress/20200830.png)
 
 # Progressive Vanilla
 This project is an independent continuation of the Elysium / LightsHope codebases, focused on delivering the most complete and accurate content progression system possible, including support for the patch appropriate game clients.

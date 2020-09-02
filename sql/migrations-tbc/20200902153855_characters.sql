@@ -21,7 +21,10 @@ ADD COLUMN `chosenTitle` int(10) NOT NULL DEFAULT '0'  COMMENT 'TBC ONLY' AFTER 
 ADD COLUMN `knownTitles` longtext COMMENT 'TBC ONLY' AFTER `chosenTitle`;
 
 ALTER TABLE `instance`
-ADD COLUMN `dungeon_difficulty`  tinyint(1) NOT NULL DEFAULT 0 COMMENT 'TBC Only' AFTER `resettime`,
+ADD COLUMN `difficulty`  tinyint(1) NOT NULL DEFAULT 0 COMMENT 'TBC Only' AFTER `resettime`;
+
+ALTER TABLE `item_loot`
+ADD COLUMN `suffix`  int(11) NOT NULL DEFAULT 0 COMMENT 'TBC Only' AFTER `amount`;
 
 --
 -- Table structure for table `character_declinedname`
@@ -37,6 +40,19 @@ CREATE TABLE `character_declinedname` (
   `prepositional` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`guid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+--
+-- Table structure for table `character_queststatus_daily`
+--
+
+DROP TABLE IF EXISTS `character_queststatus_daily`;
+CREATE TABLE `character_queststatus_daily` (
+  `guid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Global Unique Identifier',
+  `quest` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Quest Identifier',
+  PRIMARY KEY (`guid`,`quest`),
+  KEY `idx_guid` (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Player System';
+
 
 -- End of migration.
 END IF;

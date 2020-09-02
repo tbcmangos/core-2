@@ -867,6 +867,7 @@ CREATE TABLE IF NOT EXISTS `item_loot` (
   `owner_guid` int(11) unsigned NOT NULL DEFAULT '0',
   `itemid` int(11) unsigned NOT NULL DEFAULT '0',
   `amount` int(11) unsigned NOT NULL DEFAULT '0',
+  `suffix` int(11) unsigned NOT NULL DEFAULT '0',
   `property` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`guid`,`itemid`),
   KEY `idx_owner_guid` (`owner_guid`)
@@ -1078,3 +1079,14 @@ CREATE TABLE `character_declinedname` (
   `prepositional` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`guid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+--
+-- Table structure for table `character_queststatus_daily`
+--
+
+DROP TABLE IF EXISTS `character_queststatus_daily`;
+CREATE TABLE `character_queststatus_daily` (
+  `guid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Global Unique Identifier',
+  `quest` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Quest Identifier',
+  PRIMARY KEY (`guid`,`quest`),
+  KEY `idx_guid` (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='Player System';

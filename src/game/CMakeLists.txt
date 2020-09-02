@@ -213,7 +213,7 @@ set (game_SRCS
     vmap/VMapFactory.cpp
     vmap/VMapManager2.cpp
     vmap/WorldModel.cpp
-	VoiceChatHandler.cpp
+    VoiceChatHandler.cpp
     AccountMgr.h
     AuraRemovalMgr.h
     AutoBroadCastMgr.h

@@ -1309,4 +1309,27 @@ void WorldSession::HandleRealmSplitOpcode(WorldPacket& recv_data)
     SendPacket(&data);
     // DEBUG_LOG("response sent %u", unk);
 }
+
+void WorldSession::HandleOptOutOfLootOpcode(WorldPacket& recv_data)
+{
+    DEBUG_LOG("WORLD: Received opcode CMSG_OPT_OUT_OF_LOOT");
+
+    uint32 unkn;
+    recv_data >> unkn;
+
+    // ignore if player not loaded
+    if (!GetPlayer())                                       // needed because STATUS_AUTHED
+    {
+        if (unkn != 0)
+        {
+            sLog.outError("CMSG_GROUP_PASS_ON_LOOT value<>0 for not-loaded character!");
+        }
+        return;
+    }
+
+    if (unkn != 0)
+    {
+        sLog.outError("CMSG_GROUP_PASS_ON_LOOT: activation not implemented!");
+    }
+}
 #endif

@@ -1026,6 +1026,8 @@ void Opcodes::BuildOpcodeList()
     //};
 
     /*0x38C*/  StoreOpcode(CMSG_REALM_SPLIT,                  "CMSG_REALM_SPLIT",                 STATUS_AUTHED,     PACKET_PROCESS_WORLD,        &WorldSession::HandleRealmSplitOpcode);
+    /*0x3AF*/  StoreOpcode(CMSG_VOICE_SESSION_ENABLE,         "CMSG_VOICE_SESSION_ENABLE",        STATUS_AUTHED,     PACKET_PROCESS_WORLD,        &WorldSession::HandleVoiceSessionEnableOpcode);
+    /*0x408*/  StoreOpcode(CMSG_OPT_OUT_OF_LOOT,              "CMSG_OPT_OUT_OF_LOOT",             STATUS_AUTHED,     PACKET_PROCESS_WORLD,        &WorldSession::HandleOptOutOfLootOpcode);
 
 
 

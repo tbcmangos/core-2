@@ -973,6 +973,8 @@ class WorldSession
 
         void HandleLookingForGroup(WorldPacket& recvPacket);
 
+        void HandleOptOutOfLootOpcode(WorldPacket& recv_data);
+
         void HandleSetPlayerDeclinedNamesOpcode(WorldPacket& recv_data);
 
         void HandleBattlemasterJoinArena(WorldPacket& recv_data);

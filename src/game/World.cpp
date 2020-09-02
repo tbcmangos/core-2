@@ -531,6 +531,12 @@ void World::LoadConfigSettings(bool reload)
 #if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
     if (configNoReload(reload, CONFIG_UINT32_EXPANSION, "Expansion", MAX_EXPANSION))
         setConfigMinMax(CONFIG_UINT32_EXPANSION, "Expansion", MAX_EXPANSION, 0, MAX_EXPANSION);
+
+    // always use declined names in the russian client
+    if (getConfig(CONFIG_UINT32_REALM_ZONE) == REALM_ZONE_RUSSIAN)
+        setConfig(CONFIG_BOOL_DECLINED_NAMES_USED, true);
+    else
+        setConfig(CONFIG_BOOL_DECLINED_NAMES_USED, "DeclinedNames", false);
 #endif
 
     setConfig(CONFIG_UINT32_LOGIN_QUEUE_GRACE_PERIOD_SECS, "LoginQueue.GracePeriodSecs", 0);

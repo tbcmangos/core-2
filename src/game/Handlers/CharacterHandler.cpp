@@ -92,25 +92,58 @@ bool LoginQueryHolder::Initialize()
 
     // NOTE: all fields in `characters` must be read to prevent lost character data at next save in case wrong DB structure.
     // !!! NOTE: including unused `zone`,`online`
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADFROM, "SELECT guid, account, name, race, class, gender, level, xp, money, playerBytes, playerBytes2, playerFlags, "
+                     "position_x, position_y, position_z, map, orientation, taximask, cinematic, totaltime, leveltime, rest_bonus, logout_time, is_logout_resting, resettalents_multiplier, "
+                     "resettalents_time, trans_x, trans_y, trans_z, trans_o, transguid, extra_flags, stable_slots, at_login, zone, online, death_expire_time, taxi_path, `dungeon_difficulty`,"  //TBC add dungeon_difficulty
+                     "`arenaPoints`, `totalHonorPoints`, `todayHonorPoints`, `yesterdayHonorPoints`, `totalKills`, `todayKills`, `yesterdayKills`, `chosenTitle`, `knownTitles`, " //TBC modified line
+                     "watchedFaction, drunk, health, power1, power2, power3, power4, power5, exploredZones, equipmentCache, ammoId, actionBars, "
+                     "world_phase_mask FROM characters WHERE guid = '%u'", m_guid.GetCounter());
+#else
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADFROM,            "SELECT guid, account, name, race, class, gender, level, xp, money, playerBytes, playerBytes2, playerFlags, "
                      "position_x, position_y, position_z, map, orientation, taximask, cinematic, totaltime, leveltime, rest_bonus, logout_time, is_logout_resting, resettalents_multiplier, "
                      "resettalents_time, trans_x, trans_y, trans_z, trans_o, transguid, extra_flags, stable_slots, at_login, zone, online, death_expire_time, taxi_path, "
                      "honorRankPoints, honorHighestRank, honorStanding, honorLastWeekHK, honorLastWeekCP, honorStoredHK, honorStoredDK, "
                      "watchedFaction, drunk, health, power1, power2, power3, power4, power5, exploredZones, equipmentCache, ammoId, actionBars, "
                      "world_phase_mask FROM characters WHERE guid = '%u'", m_guid.GetCounter());
+#endif
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADGROUP,           "SELECT groupId FROM group_member WHERE memberGuid ='%u'", m_guid.GetCounter());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADBOUNDINSTANCES,  "SELECT id, permanent, map, `difficulty`, resettime FROM character_instance LEFT JOIN instance ON instance = id WHERE guid = '%u'", m_guid.GetCounter()); //TBC add difficulty
+#else
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADBOUNDINSTANCES,  "SELECT id, permanent, map, resettime FROM character_instance LEFT JOIN instance ON instance = id WHERE guid = '%u'", m_guid.GetCounter());
+#endif
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADAURAS,           "SELECT caster_guid,item_guid,spell,stackcount,remaincharges,basepoints0,basepoints1,basepoints2,periodictime0,periodictime1,periodictime2,maxduration,remaintime,effIndexMask FROM character_aura WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADSPELLS,          "SELECT spell,active,disabled FROM character_spell WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADQUESTSTATUS,     "SELECT quest,status,rewarded,explored,timer,mobcount1,mobcount2,mobcount3,mobcount4,itemcount1,itemcount2,itemcount3,itemcount4,reward_choice FROM character_queststatus WHERE guid = '%u'", m_guid.GetCounter());
+#if SUPPORTED_CLIENT_BUILD <= CLIENT_BUILD_1_12_1
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADHONORCP,         "SELECT victimType,victim,cp,date,type FROM character_honor_cp WHERE guid = '%u'", m_guid.GetCounter());
+#endif
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADDAILYQUESTSTATUS, "SELECT `quest` FROM `character_queststatus_daily` WHERE `guid` = '%u'", m_guid.GetCounter());
+#endif
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADREPUTATION,      "SELECT faction,standing,flags FROM character_reputation WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADINVENTORY,       "SELECT * FROM (SELECT creatorGuid, giftCreatorGuid, count, duration, charges, flags, enchantments, randomPropertyId, durability, text, bag, slot, item, itemEntry, generated_loot FROM character_inventory JOIN item_instance ON character_inventory.item = item_instance.guid WHERE character_inventory.guid = '%u') as t ORDER BY bag,slot", m_guid.GetCounter());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADITEMLOOT,        "SELECT guid,itemid,amount,`suffix`,property FROM item_loot WHERE owner_guid = '%u'", m_guid.GetCounter()); //tbc add `suffix`
+#else
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADITEMLOOT,        "SELECT guid,itemid,amount,property FROM item_loot WHERE owner_guid = '%u'", m_guid.GetCounter());
+#endif
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADACTIONS,         "SELECT button,action,type FROM character_action WHERE guid = '%u' ORDER BY button", m_guid.GetCounter());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADSOCIALLIST,      "SELECT friend,flags,`note` FROM character_social WHERE guid = '%u' LIMIT 255", m_guid.GetCounter()); //tbc add note
+#else
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADSOCIALLIST,      "SELECT friend,flags FROM character_social WHERE guid = '%u' LIMIT 255", m_guid.GetCounter());
+#endif
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADHOMEBIND,        "SELECT map,zone,position_x,position_y,position_z FROM character_homebind WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADSPELLCOOLDOWNS,  "SELECT spell,item,time,cattime FROM character_spell_cooldown WHERE guid = '%u'", m_guid.GetCounter());
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    if (sWorld.getConfig(CONFIG_BOOL_DECLINED_NAMES_USED))
+    {
+        res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADDECLINEDNAMES, "SELECT `genitive`, `dative`, `accusative`, `instrumental`, `prepositional` FROM `character_declinedname` WHERE `guid` = '%u'", m_guid.GetCounter());
+    }
+#endif
+    // in other case still be dummy query
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADGUILD,           "SELECT guildid,rank FROM guild_member WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADBGDATA,          "SELECT instance_id, team, join_x, join_y, join_z, join_o, join_map FROM character_battleground_data WHERE guid = '%u'", m_guid.GetCounter());
     res &= SetPQuery(PLAYER_LOGIN_QUERY_LOADSKILLS,          "SELECT skill, value, max FROM character_skills WHERE guid = '%u'", m_guid.GetCounter());
@@ -184,8 +217,12 @@ void WorldSession::HandleCharEnum(QueryResult* result)
 
 void WorldSession::HandleCharEnumOpcode(WorldPacket& /*recv_data*/)
 {
+
     /// get all the data necessary for loading all characters (along with their pets) on the account
     CharacterDatabase.AsyncPQuery(&chrHandler, &CharacterHandler::HandleCharEnumCallback, GetAccountId(),
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+                                  !sWorld.getConfig(CONFIG_BOOL_DECLINED_NAMES_USED) ?
+#endif
                                   //           0               1                2                3                 4                  5                       6                        7
                                   "SELECT characters.guid, characters.name, characters.race, characters.class, characters.gender, characters.playerBytes, characters.playerBytes2, characters.level, "
                                   //   8                9               10                     11                     12                     13                    14
@@ -195,6 +232,20 @@ void WorldSession::HandleCharEnumOpcode(WorldPacket& /*recv_data*/)
                                   "FROM characters LEFT JOIN character_pet ON characters.guid=character_pet.owner AND character_pet.slot='%u' "
                                   "LEFT JOIN guild_member ON characters.guid = guild_member.guid "
                                   "WHERE characters.account = '%u' ORDER BY characters.guid "
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+                                  :
+                                  //   --------- Query With Declined Names ---------
+                                  //           0               1                2                3                 4                  5                       6                        7
+                                  "SELECT characters.guid, characters.name, characters.race, characters.class, characters.gender, characters.playerBytes, characters.playerBytes2, characters.level, "
+                                  //   8                9               10                     11                     12                     13                    14
+                                  "characters.zone, characters.map, characters.position_x, characters.position_y, characters.position_z, guild_member.guildid, characters.playerFlags, "
+                                  //  15                    16                   17                     18                   19                             20
+                                  "characters.at_login, character_pet.entry, character_pet.modelid, character_pet.level, characters.equipmentCache, character_declinedname.genitive "
+                                  "FROM characters LEFT JOIN character_pet ON characters.guid = character_pet.owner AND character_pet.slot='%u' "
+                                  "LEFT JOIN character_declinedname ON characters.guid = character_declinedname.guid "
+                                  "LEFT JOIN guild_member ON characters.guid = guild_member.guid "
+                                  "WHERE characters.account = '%u' ORDER BY characters.guid"
+#endif
                                   "LIMIT 0,10",
                                   PET_SAVE_AS_CURRENT, GetAccountId());
 }
@@ -608,8 +659,20 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder *holder)
         data << uint32(0);
     SendPacket(&data);
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    data.Initialize(SMSG_FEATURE_SYSTEM_STATUS, 2);         // added in 2.2.0
+    data << uint8(2);                                       // unknown value
+    data << uint8(0);                                       // enable(1)/disable(0) voice chat interface in client
+    SendPacket(&data);
+#endif
+
     // Send MOTD (1.12.1 not have SMSG_MOTD, so do it in another way)
     {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        data.Initialize(SMSG_MOTD, 50);                     // new in 2.0.1
+        data << (uint32)0;
+#endif
+
         uint32 linecount = 0;
         std::string str_motd = sWorld.GetMotd();
         std::string::size_type pos, nextpos;
@@ -620,7 +683,11 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder *holder)
         {
             if (nextpos != pos)
             {
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+                data << str_motd.substr(pos, nextpos - pos);
+#else
                 ChatHandler(pCurrChar).PSendSysMessage(str_motd.substr(pos, nextpos - pos).c_str());
+#endif
                 ++linecount;
             }
             pos = nextpos + 1;
@@ -643,7 +710,9 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder *holder)
         data << guild->GetMOTD();
         SendPacket(&data);
         DEBUG_LOG("WORLD: Sent guild-motd (SMSG_GUILD_EVENT)");
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        //guild->DisplayGuildBankTabsInfo(this); //TODO
+#endif
         guild->BroadcastEvent(GE_SIGNED_ON, pCurrChar->GetObjectGuid(), pCurrChar->GetName());
     }
 
@@ -661,6 +730,26 @@ void WorldSession::HandlePlayerLogin(LoginQueryHolder *holder)
         if (ChrRacesEntry const* rEntry = sChrRacesStore.LookupEntry(pCurrChar->GetRace()))
             pCurrChar->SendCinematicStart(rEntry->CinematicSequence);
     }
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    ////todo
+    //AreaLockStatus lockStatus = AREA_LOCKSTATUS_OK;
+    //if (AreaTrigger const* at = sObjectMgr.GetMapEntranceTrigger(pCurrChar->GetMapId()))
+    //{
+    //    lockStatus = pCurrChar->GetAreaTriggerLockStatus(at, miscRequirement);
+    //}
+    //else
+    //{
+    //    // Some basic checks in case of a map without areatrigger
+    //    MapEntry const* mapEntry = sMapStore.LookupEntry(pCurrChar->GetMapId());
+    //    if (!mapEntry)
+    //    {
+    //        lockStatus = AREA_LOCKSTATUS_UNKNOWN_ERROR;
+    //    }
+    //    else if (pCurrChar->GetSession()->Expansion() < mapEntry->Expansion()) //New for tbc
+    //        lockStatus = AREA_LOCKSTATUS_INSUFFICIENT_EXPANSION; //New for tbc
+    //}
+#endif
 
     if (!alreadyOnline && !pCurrChar->GetMap()->Add(pCurrChar))
     {
@@ -840,6 +929,17 @@ void WorldSession::HandleSetFactionAtWarOpcode(WorldPacket& recv_data)
     pPlayer->GetReputationMgr().SetAtWar(repListId, flag);
 }
 
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::HandleMeetingStoneInfoOpcode(WorldPacket & /*recv_data*/)
+{
+    DEBUG_LOG("WORLD: Received CMSG_MEETING_STONE_INFO");
+
+    WorldPacket data(SMSG_MEETINGSTONE_SETQUEUE, 5);
+    data << uint32(0) << uint8(6);
+    SendPacket(&data);
+}
+#endif
+
 void WorldSession::HandleTutorialFlagOpcode(WorldPacket& recv_data)
 {
     uint32 iFlag;
@@ -974,6 +1074,9 @@ void WorldSession::HandleChangePlayerNameOpcodeCallBack(QueryResult* result, uin
 
     CharacterDatabase.BeginTransaction();
     CharacterDatabase.PExecute("UPDATE characters set name = '%s', at_login = at_login & ~ %u WHERE guid ='%u'", newname.c_str(), uint32(AT_LOGIN_RENAME), guidLow);
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+    CharacterDatabase.PExecute("DELETE FROM `character_declinedname` WHERE `guid` ='%u'", guidLow);
+#endif
     CharacterDatabase.CommitTransaction();
 
     sLog.out(LOG_CHAR, "Account: %d (IP: %s) Character:[%s] (guid:%u) Changed name to: %s", session->GetAccountId(), session->GetRemoteAddress().c_str(), oldname.c_str(), guidLow, newname.c_str());
@@ -987,3 +1090,96 @@ void WorldSession::HandleChangePlayerNameOpcodeCallBack(QueryResult* result, uin
     sObjectMgr.ChangePlayerNameInCache(guidLow, oldname, newname);
     sWorld.InvalidatePlayerDataToAllClient(guid);
 }
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+void WorldSession::HandleSetPlayerDeclinedNamesOpcode(WorldPacket& recv_data)
+{
+    ObjectGuid guid;
+
+    recv_data >> guid;
+
+    // not accept declined names for unsupported languages
+    std::string name;
+    if (!sObjectMgr.GetPlayerNameByGUID(guid, name))
+    {
+        WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+        data << uint32(1);
+        data << ObjectGuid(guid);
+        SendPacket(&data);
+        return;
+    }
+
+    std::wstring wname;
+    if (!Utf8toWStr(name, wname))
+    {
+        WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+        data << uint32(1);
+        data << ObjectGuid(guid);
+        SendPacket(&data);
+        return;
+    }
+
+    if (!isCyrillicCharacter(wname[0]))                     // name already stored as only single alphabet using
+    {
+        WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+        data << uint32(1);
+        data << ObjectGuid(guid);
+        SendPacket(&data);
+        return;
+    }
+
+    std::string name2;
+    DeclinedName declinedname;
+
+    recv_data >> name2;
+
+    if (name2 != name)                                      // character have different name
+    {
+        WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+        data << uint32(1);
+        data << ObjectGuid(guid);
+        SendPacket(&data);
+        return;
+    }
+
+    for (int i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
+    {
+        recv_data >> declinedname.name[i];
+        if (!normalizePlayerName(declinedname.name[i]))
+        {
+            WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+            data << uint32(1);
+            data << ObjectGuid(guid);
+            SendPacket(&data);
+            return;
+        }
+    }
+
+    if (!ObjectMgr::CheckDeclinedNames(GetMainPartOfName(wname, 0), declinedname))
+    {
+        WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+        data << uint32(1);
+        data << ObjectGuid(guid);
+        SendPacket(&data);
+        return;
+    }
+
+    for (int i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
+    {
+        CharacterDatabase.escape_string(declinedname.name[i]);
+    }
+
+    CharacterDatabase.BeginTransaction();
+    CharacterDatabase.PExecute("DELETE FROM `character_declinedname` WHERE `guid` = '%u'", guid.GetCounter());
+    CharacterDatabase.PExecute("INSERT INTO `character_declinedname` (`guid`, `genitive`, `dative`, `accusative`, `instrumental`, `prepositional`) VALUES ('%u','%s','%s','%s','%s','%s')",
+        guid.GetCounter(), declinedname.name[0].c_str(), declinedname.name[1].c_str(), declinedname.name[2].c_str(), declinedname.name[3].c_str(), declinedname.name[4].c_str());
+    CharacterDatabase.CommitTransaction();
+
+    WorldPacket data(SMSG_SET_PLAYER_DECLINED_NAMES_RESULT, 4 + 8);
+    data << uint32(0);                                      // OK
+    data << ObjectGuid(guid);
+    SendPacket(&data);
+
+    sWorld.InvalidatePlayerDataToAllClient(guid);
+}
+#endif

@@ -1151,7 +1151,9 @@ class ObjectMgr
         static uint8 CheckPlayerName(std::string const& name, bool create = false);
         static PetNameInvalidReason CheckPetName(std::string const& name);
         static bool IsValidCharterName(std::string const& name);
-
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+        static bool CheckDeclinedNames(const std::wstring& mainpart, DeclinedName const& names);
+#endif
         int GetIndexForLocale(LocaleConstant loc);
         LocaleConstant GetLocaleForIndex(int i);
 

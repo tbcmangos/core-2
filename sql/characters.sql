@@ -96,6 +96,7 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `position_z` float NOT NULL DEFAULT '0',
   `map` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Map Identifier',
   `orientation` float NOT NULL DEFAULT '0',
+  `dungeon_difficulty` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `taximask` longtext,
   `online` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `cinematic` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -124,6 +125,17 @@ CREATE TABLE IF NOT EXISTS `characters` (
   `honorLastWeekCP` float NOT NULL DEFAULT '0',
   `honorStoredHK` int(11) NOT NULL DEFAULT '0',
   `honorStoredDK` int(11) NOT NULL DEFAULT '0',
+  
+  `arenaPoints` int(10) unsigned NOT NULL DEFAULT '0',
+  `totalHonorPoints` int(10) unsigned NOT NULL DEFAULT '0',
+  `todayHonorPoints` int(10) unsigned NOT NULL DEFAULT '0',
+  `yesterdayHonorPoints` int(10) unsigned NOT NULL DEFAULT '0',
+  `totalKills` int(10) unsigned NOT NULL DEFAULT '0',
+  `todayKills` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `yesterdayKills` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `chosenTitle` int(10) unsigned NOT NULL DEFAULT '0',
+  `knownTitles` longtext,
+  
   `watchedFaction` int(10) unsigned NOT NULL DEFAULT '0',
   `drunk` smallint(5) unsigned NOT NULL DEFAULT '0',
   `health` int(10) unsigned NOT NULL DEFAULT '0',
@@ -435,6 +447,7 @@ CREATE TABLE IF NOT EXISTS `character_social` (
   `guid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Character Global Unique Identifier',
   `friend` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Friend Global Unique Identifier',
   `flags` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT 'Friend Flags',
+  `note` varchar(48) NOT NULL DEFAULT '' COMMENT 'Friend Note',
   PRIMARY KEY (`guid`,`friend`,`flags`),
   KEY `idx_guid` (`guid`),
   KEY `idx_friend` (`friend`),
@@ -787,12 +800,27 @@ CREATE TABLE IF NOT EXISTS `instance` (
   `id` int(11) unsigned NOT NULL DEFAULT '0',
   `map` int(11) unsigned NOT NULL DEFAULT '0',
   `resettime` bigint(40) NOT NULL DEFAULT '0',
+  `difficulty` tinyint(1) NOT NULL DEFAULT '0',
   `data` longtext,
   PRIMARY KEY (`id`),
   KEY `idx_map` (`map`),
   KEY `idx_resettime` (`resettime`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `instance`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `instance` (
+  `id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'The instance ID. This number is unique to every instance.',
+  `map` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'The map ID the instance is in. (See Map.dbc)',
+  `resettime` bigint(40) unsigned NOT NULL DEFAULT '0' COMMENT 'The time when the instance will be reset, in Unix time.',
+  `difficulty` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `data` longtext COMMENT 'Specific data belonging to the individual instance.',
+  PRIMARY KEY (`id`),
+  KEY `map` (`map`),
+  KEY `resettime` (`resettime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 -- Data exporting was unselected.
 
 
@@ -1036,3 +1064,17 @@ CREATE TABLE IF NOT EXISTS `worldstates` (
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+--
+-- Table structure for table `character_declinedname`
+--
+
+DROP TABLE IF EXISTS `character_declinedname`;
+CREATE TABLE `character_declinedname` (
+  `guid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT 'Global Unique Identifier',
+  `genitive` varchar(15) NOT NULL DEFAULT '',
+  `dative` varchar(15) NOT NULL DEFAULT '',
+  `accusative` varchar(15) NOT NULL DEFAULT '',
+  `instrumental` varchar(15) NOT NULL DEFAULT '',
+  `prepositional` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;

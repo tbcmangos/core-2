@@ -11222,3 +11222,23 @@ void ObjectMgr::ApplyPremadeSpecTemplateToPlayer(uint32 entry, Player* pPlayer) 
         }
     }
 }
+
+#if SUPPORTED_CLIENT_BUILD > CLIENT_BUILD_1_12_1
+bool ObjectMgr::CheckDeclinedNames(const std::wstring& mainpart, DeclinedName const& names)
+{
+    for (int i = 0; i < MAX_DECLINED_NAME_CASES; ++i)
+    {
+        std::wstring wname;
+        if (!Utf8toWStr(names.name[i], wname))
+        {
+            return false;
+        }
+
+        if (mainpart != GetMainPartOfName(wname, i + 1))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+#endif

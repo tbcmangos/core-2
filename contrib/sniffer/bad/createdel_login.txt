@@ -1,0 +1,57 @@
+Detected game build 8606.
+[ServerToClient] Time 55825158, Size 6
+Opcode: 492 SMSG_AUTH_CHALLENGE
+[ServerToClient] Time 55825194, Size 130
+Opcode: 751 SMSG_ADDON_INFO
+[ServerToClient] Time 55825261, Size 13
+Opcode: 494 SMSG_AUTH_RESPONSE
+[ServerToClient] Time 55825822, Size 19
+Opcode: 907 SMSG_REALM_SPLIT
+[ServerToClient] Time 55825950, Size 1224
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 55833875, Size 3
+Opcode: 58 SMSG_CHAR_CREATE
+[ServerToClient] Time 55833875, Size 2
+Opcode: 334 SMSG_CANCEL_COMBAT
+[ServerToClient] Time 55837074, Size 19
+Opcode: 907 SMSG_REALM_SPLIT
+[ServerToClient] Time 55837183, Size 1466
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 55846084, Size 3
+Opcode: 60 SMSG_CHAR_DELETE
+[ServerToClient] Time 55892031, Size 3
+Opcode: 669 SMSG_STANDSTATE_UPDATE
+[ServerToClient] Time 55892031, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 55892031, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 55892031, Size 22
+Opcode: 566 SMSG_LOGIN_VERIFY_WORLD
+[ServerToClient] Time 55892031, Size 130
+Opcode: 521 SMSG_ACCOUNT_DATA_TIMES
+[ServerToClient] Time 55892031, Size 4
+Opcode: 968 SMSG_FEATURE_SYSTEM_STATUS
+[ServerToClient] Time 55892031, Size 50
+Opcode: 150 SMSG_MESSAGECHAT
+[ServerToClient] Time 55892031, Size 58
+Opcode: 150 SMSG_MESSAGECHAT
+[ServerToClient] Time 55892031, Size 6
+Opcode: 542 SMSG_SET_REST_START
+[ServerToClient] Time 55892031, Size 22
+Opcode: 341 SMSG_BINDPOINTUPDATE
+[ServerToClient] Time 55892031, Size 34
+Opcode: 253 SMSG_TUTORIAL_FLAGS
+[ServerToClient] Time 55892031, Size 21
+Opcode: 298 SMSG_INITIAL_SPELLS
+[ServerToClient] Time 55892031, Size 482
+Opcode: 297 SMSG_ACTION_BUTTONS
+[ServerToClient] Time 55892031, Size 326
+Opcode: 290 SMSG_INITIALIZE_FACTIONS
+[ServerToClient] Time 55892031, Size 10
+Opcode: 66 SMSG_LOGIN_SETTIMESPEED
+[ServerToClient] Time 55892031, Size 482
+Opcode: 297 SMSG_ACTION_BUTTONS
+[ServerToClient] Time 55892031, Size 175
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 55892031, Size 387
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT

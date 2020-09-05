@@ -1,0 +1,455 @@
+Detected game build 8606.
+[ServerToClient] Time 54009592, Size 6
+Opcode: 492 SMSG_AUTH_CHALLENGE
+[ServerToClient] Time 54009621, Size 13
+Opcode: 494 SMSG_AUTH_RESPONSE
+[ServerToClient] Time 54009621, Size 130
+Opcode: 751 SMSG_ADDON_INFO
+[ServerToClient] Time 54010175, Size 19
+Opcode: 907 SMSG_REALM_SPLIT
+[ServerToClient] Time 54010175, Size 1713
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54021514, Size 3
+Opcode: 58 SMSG_CHAR_CREATE
+[ServerToClient] Time 54021624, Size 19
+Opcode: 907 SMSG_REALM_SPLIT
+[ServerToClient] Time 54021624, Size 1956
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 54032044, Size 3
+Opcode: 60 SMSG_CHAR_DELETE
+[ServerToClient] Time 54032602, Size 1713
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54051926, Size 3
+Opcode: 58 SMSG_CHAR_CREATE
+[ServerToClient] Time 54052038, Size 19
+Opcode: 907 SMSG_REALM_SPLIT
+[ServerToClient] Time 54052038, Size 1955
+Opcode: 59 SMSG_CHAR_ENUM
+[ServerToClient] Time 54065437, Size 32
+Opcode: 306 SMSG_SPELL_GO
+[ServerToClient] Time 54065437, Size 7
+Opcode: 311 SMSG_UPDATE_AURA_DURATION
+[ServerToClient] Time 54065437, Size 17
+Opcode: 932 SMSG_SET_EXTRA_AURA_INFO
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 7
+Opcode: 295 SMSG_SET_PROFICIENCY
+[ServerToClient] Time 54065437, Size 14
+Opcode: 809 MSG_SET_DUNGEON_DIFFICULTY
+[ServerToClient] Time 54065437, Size 22
+Opcode: 566 SMSG_LOGIN_VERIFY_WORLD
+[ServerToClient] Time 54065437, Size 130
+Opcode: 521 SMSG_ACCOUNT_DATA_TIMES
+[ServerToClient] Time 54065437, Size 4
+Opcode: 968 SMSG_FEATURE_SYSTEM_STATUS
+[ServerToClient] Time 54065437, Size 40
+Opcode: 829 SMSG_MOTD
+[ServerToClient] Time 54065437, Size 6
+Opcode: 542 SMSG_SET_REST_START
+[ServerToClient] Time 54065437, Size 22
+Opcode: 341 SMSG_BINDPOINTUPDATE
+[ServerToClient] Time 54065437, Size 34
+Opcode: 253 SMSG_TUTORIAL_FLAGS
+[ServerToClient] Time 54065437, Size 10
+Opcode: 827 SMSG_INSTANCE_DIFFICULTY
+[ServerToClient] Time 54065437, Size 167
+Opcode: 298 SMSG_INITIAL_SPELLS
+[ServerToClient] Time 54065437, Size 6
+Opcode: 1053 SMSG_SEND_UNLEARN_SPELLS
+[ServerToClient] Time 54065437, Size 530
+Opcode: 297 SMSG_ACTION_BUTTONS
+[ServerToClient] Time 54065437, Size 646
+Opcode: 290 SMSG_INITIALIZE_FACTIONS
+[ServerToClient] Time 54065437, Size 96
+Opcode: 706 SMSG_INIT_WORLD_STATES
+[ServerToClient] Time 54065437, Size 10
+Opcode: 66 SMSG_LOGIN_SETTIMESPEED
+[ServerToClient] Time 54065437, Size 6
+Opcode: 250 SMSG_TRIGGER_CINEMATIC
+[ServerToClient] Time 54065437, Size 489
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54065437, Size 128
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54065437, Size 10
+Opcode: 103 SMSG_CONTACT_LIST
+[ServerToClient] Time 54065437, Size 2947
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54065437, Size 11
+Opcode: 756 SMSG_WEATHER
+[ServerToClient] Time 54065437, Size 6
+Opcode: 912 SMSG_TIME_SYNC_REQ
+[ServerToClient] Time 54065437, Size 32
+Opcode: 306 SMSG_SPELL_GO
+[ServerToClient] Time 54065639, Size 28
+Opcode: 81 SMSG_NAME_QUERY_RESPONSE
+[ServerToClient] Time 54065639, Size 6
+Opcode: 716 SMSG_RAID_INSTANCE_INFO
+[ServerToClient] Time 54065639, Size 6
+Opcode: 530 SMSG_GMTICKET_GETTICKET
+[ServerToClient] Time 54065642, Size 10
+Opcode: 463 SMSG_QUERY_TIME_RESPONSE
+[ServerToClient] Time 54065642, Size 10
+Opcode: 644 MSG_QUERY_NEXT_MAIL_TIME
+[ServerToClient] Time 54065642, Size 7
+Opcode: 661 SMSG_MEETINGSTONE_SETQUEUE
+[ServerToClient] Time 54065642, Size 141
+Opcode: 95 SMSG_GAMEOBJECT_QUERY_RESPONSE
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065642, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54065761, Size 11
+Opcode: 756 SMSG_WEATHER
+[ServerToClient] Time 54065761, Size 96
+Opcode: 706 SMSG_INIT_WORLD_STATES
+[ServerToClient] Time 54065977, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54066297, Size 179
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54066394, Size 40
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54066427, Size 4065
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066472, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066533, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54066533, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54066627, Size 3113
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54066669, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54067044, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54067064, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54067598, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54067615, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54067632, Size 1162
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54068149, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54068179, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54068696, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54068716, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54069246, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54069266, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54069780, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54069800, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54070347, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54070367, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54070897, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54070918, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54071448, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54071468, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54071698, Size 341
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54071981, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54072015, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54072549, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54072569, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54072686, Size 21
+Opcode: 169 SMSG_UPDATE_OBJECT
+[ServerToClient] Time 54073082, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54073103, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54073633, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54073653, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54074183, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54074200, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54074733, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54074754, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54075267, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54075267, Size 6
+Opcode: 912 SMSG_TIME_SYNC_REQ
+[ServerToClient] Time 54075301, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54075835, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54075855, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54076368, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54076388, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54076618, Size 211
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54076919, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54076939, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54077452, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54077486, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54077586, Size 21
+Opcode: 169 SMSG_UPDATE_OBJECT
+[ServerToClient] Time 54078021, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54078041, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54078553, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54078575, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54078575, Size 92
+Opcode: 169 SMSG_UPDATE_OBJECT
+[ServerToClient] Time 54078684, Size 574
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54079104, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54079124, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54079654, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54079675, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54079675, Size 545
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54080188, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54080209, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54080672, Size 48
+Opcode: 169 SMSG_UPDATE_OBJECT
+[ServerToClient] Time 54080755, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54080776, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54081289, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54081309, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54081639, Size 541
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54081847, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54081858, Size 9
+Opcode: 1057 SMSG_SPLINE_MOVE_SET_FLYING
+[ServerToClient] Time 54082294, Size 34
+Opcode: 153 SMSG_CHANNEL_NOTIFY
+[ServerToClient] Time 54082294, Size 38
+Opcode: 1007 SMSG_USERLIST_ADD
+[ServerToClient] Time 54082294, Size 34
+Opcode: 153 SMSG_CHANNEL_NOTIFY
+[ServerToClient] Time 54082294, Size 38
+Opcode: 1007 SMSG_USERLIST_ADD
+[ServerToClient] Time 54082294, Size 40
+Opcode: 153 SMSG_CHANNEL_NOTIFY
+[ServerToClient] Time 54082294, Size 44
+Opcode: 1007 SMSG_USERLIST_ADD
+[ServerToClient] Time 54082294, Size 25
+Opcode: 153 SMSG_CHANNEL_NOTIFY
+[ServerToClient] Time 54082294, Size 29
+Opcode: 1007 SMSG_USERLIST_ADD
+[ServerToClient] Time 54082294, Size 40
+Opcode: 153 SMSG_CHANNEL_NOTIFY
+[ServerToClient] Time 54082294, Size 44
+Opcode: 1007 SMSG_USERLIST_ADD
+[ServerToClient] Time 54082402, Size 29
+Opcode: 980 SMSG_CHANNEL_MEMBER_COUNT
+[ServerToClient] Time 54082402, Size 29
+Opcode: 980 SMSG_CHANNEL_MEMBER_COUNT
+[ServerToClient] Time 54082402, Size 35
+Opcode: 980 SMSG_CHANNEL_MEMBER_COUNT
+[ServerToClient] Time 54082402, Size 20
+Opcode: 980 SMSG_CHANNEL_MEMBER_COUNT
+[ServerToClient] Time 54082402, Size 35
+Opcode: 980 SMSG_CHANNEL_MEMBER_COUNT
+[ServerToClient] Time 54082402, Size 36
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54082514, Size 3437
+Opcode: 502 SMSG_COMPRESSED_UPDATE_OBJECT
+[ServerToClient] Time 54082514, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54082623, Size 11
+Opcode: 387 SMSG_QUESTGIVER_STATUS
+[ServerToClient] Time 54085410, Size 6
+Opcode: 912 SMSG_TIME_SYNC_REQ
+[ServerToClient] Time 54087412, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54088303, Size 21
+Opcode: 169 SMSG_UPDATE_OBJECT
+[ServerToClient] Time 54088414, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54089633, Size 50
+Opcode: 221 SMSG_MONSTER_MOVE
+[ServerToClient] Time 54089744, Size 92
+Opcode: 169 SMSG_UPDATE_OBJECT

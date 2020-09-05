@@ -1,0 +1,1086 @@
+# TrinityCore - WowPacketParser
+# File name: Wow_8606_1599324131_createdel_login.pkt
+# Detected build: V2_4_3_8606
+# Detected locale: 
+# Targeted database: WrathOfTheLichKing
+# Parsing date: 09/06/2020 00:44:41
+
+ServerToClient: SMSG_AUTH_CHALLENGE (0x01EC) Length: 4 ConnIdx: 0 Time: 09/05/2020 16:42:15.000 Number: 0
+Server Seed: 1181524338
+
+ServerToClient: SMSG_ADDON_INFO (0x02EF) Length: 128 ConnIdx: 0 Time: 09/05/2020 16:42:15.000 Number: 1
+Error: CMSG_AUTH_SESSION was not received - cannot successfully parse this packet.
+
+ServerToClient: SMSG_AUTH_RESPONSE (0x01EE) Length: 11 ConnIdx: 0 Time: 09/05/2020 16:42:15.000 Number: 2
+Auth Code: 12 (AUTH_OK)
+Billing Time Remaining: 0
+Billing Flags: 0 (None)
+Billing Time Rested: 0
+Account Expansion: 0 (WorldOfWarcraft)
+
+ServerToClient: SMSG_REALM_SPLIT (0x038B) Length: 17 ConnIdx: 0 Time: 09/05/2020 16:42:15.000 Number: 3
+Client State: -1 (Uninitialized)
+Split State: 0 (NoServerSplit)
+Split Date: 01/01/01
+
+ServerToClient: SMSG_ENUM_CHARACTERS_RESULT (0x003B) Length: 1222 ConnIdx: 0 Time: 09/05/2020 16:42:16.000 Number: 4
+Count: 5
+GUID: Full: 0x00000002 Type: Player Low: 2
+Name: Gyozsh
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 0 (Male)
+Skin: 1
+Face: 4
+Hair Style: 0
+Hair Color: 7
+Facial Hair: 10
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000003 Type: Player Low: 3
+Name: Bitola
+Race: 6 (Tauren)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 5
+Face: 2
+Hair Style: 4
+Hair Color: 2
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -2917.58 Y: -257.98 Z: 52.9968
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000004 Type: Player Low: 4
+Name: Roda
+Race: 6 (Tauren)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 4
+Face: 3
+Hair Style: 0
+Hair Color: 0
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -2917.58 Y: -257.98 Z: 52.9968
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000005 Type: Player Low: 5
+Name: Test
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 5
+Face: 7
+Hair Style: 1
+Hair Color: 0
+Facial Hair: 2
+Level: 1
+Zone Id: 14 (14)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: false
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000007 Type: Player Low: 7
+Name: Testes
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 0 (Male)
+Skin: 0
+Face: 6
+Hair Style: 4
+Hair Color: 0
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+
+ServerToClient: SMSG_CREATE_CHAR (0x003A) Length: 1 ConnIdx: 0 Time: 09/05/2020 16:42:23.000 Number: 5
+Response: 46 (CHAR_CREATE_IN_PROGRESS)
+
+ServerToClient: SMSG_CANCEL_COMBAT (0x014E) Length: 0 ConnIdx: 0 Time: 09/05/2020 16:42:23.000 Number: 6
+
+ServerToClient: SMSG_REALM_SPLIT (0x038B) Length: 17 ConnIdx: 0 Time: 09/05/2020 16:42:27.000 Number: 7
+Client State: -1 (Uninitialized)
+Split State: 0 (NoServerSplit)
+Split Date: 01/01/01
+
+ServerToClient: SMSG_ENUM_CHARACTERS_RESULT (0x003B) Length: 1464 ConnIdx: 0 Time: 09/05/2020 16:42:27.000 Number: 8
+Count: 6
+GUID: Full: 0x00000002 Type: Player Low: 2 Name: Gyozsh
+Name: Gyozsh
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 0 (Male)
+Skin: 1
+Face: 4
+Hair Style: 0
+Hair Color: 7
+Facial Hair: 10
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000003 Type: Player Low: 3 Name: Bitola
+Name: Bitola
+Race: 6 (Tauren)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 5
+Face: 2
+Hair Style: 4
+Hair Color: 2
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -2917.58 Y: -257.98 Z: 52.9968
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000004 Type: Player Low: 4 Name: Roda
+Name: Roda
+Race: 6 (Tauren)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 4
+Face: 3
+Hair Style: 0
+Hair Color: 0
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -2917.58 Y: -257.98 Z: 52.9968
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000005 Type: Player Low: 5 Name: Test
+Name: Test
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 5
+Face: 7
+Hair Style: 1
+Hair Color: 0
+Facial Hair: 2
+Level: 1
+Zone Id: 14 (14)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: false
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000007 Type: Player Low: 7 Name: Testes
+Name: Testes
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 0 (Male)
+Skin: 0
+Face: 6
+Hair Style: 4
+Hair Color: 0
+Facial Hair: 3
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+GUID: Full: 0x00000009 Type: Player Low: 9
+Name: Tea
+Race: 2 (Orc)
+Class: 1 (Warrior)
+Gender: 1 (Female)
+Skin: 1
+Face: 6
+Hair Style: 2
+Hair Color: 0
+Facial Hair: 0
+Level: 1
+Zone Id: 0 (0)
+Map Id: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Guild Id: 0
+Character Flags: 0 (None)
+First Login: true
+Pet Display Id: 0
+Pet Level: 0
+Pet Family: 0 (None)
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9995
+Equip Inventory Type: 4 (Body)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 9992
+Equip Inventory Type: 8 (Feet)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Equip Display Id: 0
+Equip Inventory Type: 0 (NonEquip)
+Equip Aura Id: 0
+Bag Display Id: 0
+Bag Inventory Type: 0 (NonEquip)
+Bag Aura Id: 0
+
+ServerToClient: SMSG_DELETE_CHAR (0x003C) Length: 1 ConnIdx: 0 Time: 09/05/2020 16:42:36.000 Number: 9
+Response: 58 (CHAR_CREATE_EXPANSION_CLASS)
+
+ServerToClient: SMSG_STAND_STATE_UPDATE (0x029D) Length: 1 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 10
+State: 0 (Stand)
+
+ServerToClient: SMSG_SET_PROFICIENCY (0x0127) Length: 5 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 11
+Class: 2 (Weapon)
+Mask: 0 (None)
+
+ServerToClient: SMSG_SET_PROFICIENCY (0x0127) Length: 5 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 12
+Class: 4 (Armor)
+Mask: 0 (None)
+
+ServerToClient: SMSG_LOGIN_VERIFY_WORLD (0x0236) Length: 20 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 13
+Map ID: 1 (1)
+Position: X: -618.518 Y: -4251.67 Z: 38.718 O: 0
+
+ServerToClient: SMSG_ACCOUNT_DATA_TIMES (0x0209) Length: 128 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 14
+[0] Unk Int32: 0
+[1] Unk Int32: 0
+[2] Unk Int32: 0
+[3] Unk Int32: 0
+[4] Unk Int32: 0
+[5] Unk Int32: 0
+[6] Unk Int32: 0
+[7] Unk Int32: 0
+[8] Unk Int32: 0
+[9] Unk Int32: 0
+[10] Unk Int32: 0
+[11] Unk Int32: 0
+[12] Unk Int32: 0
+[13] Unk Int32: 0
+[14] Unk Int32: 0
+[15] Unk Int32: 0
+[16] Unk Int32: 0
+[17] Unk Int32: 0
+[18] Unk Int32: 0
+[19] Unk Int32: 0
+[20] Unk Int32: 0
+[21] Unk Int32: 0
+[22] Unk Int32: 0
+[23] Unk Int32: 0
+[24] Unk Int32: 0
+[25] Unk Int32: 0
+[26] Unk Int32: 0
+[27] Unk Int32: 0
+[28] Unk Int32: 0
+[29] Unk Int32: 0
+[30] Unk Int32: 0
+[31] Unk Int32: 0
+
+ServerToClient: SMSG_COMPLAINT_RESULT (0x03C8) Length: 2 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 15
+Result: 2
+ComplaintType: 0
+
+ServerToClient: SMSG_CHAT (0x0096) Length: 48 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 16
+Type: 10 (Emote)
+Language: 0 (Universal)
+GUID: 0x0
+Constant time: 30
+System.ArgumentOutOfRangeException
+Specified argument was out of the range of valid values. (Parameter '0x00000206')
+   at WowPacketParser.Misc.HighGuidLegacy..ctor(HighGuidTypeLegacy high) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\HighGuid.cs:line 51
+   at WowPacketParser.Misc.WowGuid64..ctor(UInt64 id) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\WowGuid.cs:line 174
+   at WowPacketParser.Misc.Packet.ReadGuid() in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 16
+   at WowPacketParser.Misc.Packet.ReadGuid(String name, Object[] indexes) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 397
+   at WowPacketParser.Parsing.Parsers.ChatHandler.HandleServerChatMessage(Packet packet) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Parsers\ChatHandler.cs:line 113
+   at WowPacketParser.Parsing.Handler.Parse(Packet packet, Boolean isMultiple) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Handler.cs:line 149
+
+ServerToClient: SMSG_CHAT (0x0096) Length: 56 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 17
+Type: 10 (Emote)
+Language: 0 (Universal)
+GUID: 0x0
+Constant time: 38
+System.ArgumentOutOfRangeException
+Specified argument was out of the range of valid values. (Parameter '0x00000203')
+   at WowPacketParser.Misc.HighGuidLegacy..ctor(HighGuidTypeLegacy high) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\HighGuid.cs:line 51
+   at WowPacketParser.Misc.WowGuid64..ctor(UInt64 id) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\WowGuid.cs:line 174
+   at WowPacketParser.Misc.Packet.ReadGuid() in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 16
+   at WowPacketParser.Misc.Packet.ReadGuid(String name, Object[] indexes) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 397
+   at WowPacketParser.Parsing.Parsers.ChatHandler.HandleServerChatMessage(Packet packet) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Parsers\ChatHandler.cs:line 113
+   at WowPacketParser.Parsing.Handler.Parse(Packet packet, Boolean isMultiple) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Handler.cs:line 149
+
+ServerToClient: SMSG_QUEST_FORCE_REMOVED (0x021E) Length: 4 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 18
+QuestID: 0 (0)
+
+ServerToClient: SMSG_BIND_POINT_UPDATE (0x0155) Length: 20 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 19
+Position: X: -618.518 Y: -4251.67 Z: 38.718
+Map Id: 1 (1)
+Zone Id: 14 (14)
+
+ServerToClient: SMSG_TUTORIAL_FLAGS (0x00FD) Length: 32 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 20
+[0] TutorialData: 0
+[1] TutorialData: 0
+[2] TutorialData: 0
+[3] TutorialData: 0
+[4] TutorialData: 0
+[5] TutorialData: 0
+[6] TutorialData: 0
+[7] TutorialData: 0
+[8] TutorialData: 0
+[9] TutorialData: 0
+[10] TutorialData: 0
+[11] TutorialData: 0
+[12] TutorialData: 0
+[13] TutorialData: 0
+[14] TutorialData: 0
+[15] TutorialData: 0
+[16] TutorialData: 0
+[17] TutorialData: 0
+[18] TutorialData: 0
+[19] TutorialData: 0
+[20] TutorialData: 0
+[21] TutorialData: 0
+[22] TutorialData: 0
+[23] TutorialData: 0
+[24] TutorialData: 0
+[25] TutorialData: 0
+[26] TutorialData: 0
+[27] TutorialData: 0
+[28] TutorialData: 0
+[29] TutorialData: 0
+[30] TutorialData: 0
+[31] TutorialData: 0
+
+ServerToClient: SMSG_SEND_KNOWN_SPELLS (0x012A) Length: 19 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 21
+Talent Spec: 0
+Spell Count: 0
+Cooldown Count: 1
+[0] Cooldown Spell ID: 2457 (2457)
+[0] Cooldown Cast Item ID: 0
+[0] Cooldown Spell Category: 47
+[0] Cooldown Time: 0
+[0] Cooldown Category Time: 0
+
+ServerToClient: SMSG_UPDATE_ACTION_BUTTONS (0x0129) Length: 480 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 22
+[72] Action: 6603
+[72] Type: Spell
+[73] Action: 78
+[73] Type: Spell
+[74] Action: 20572
+[74] Type: Spell
+[83] Action: 117
+[83] Type: Item
+System.IO.EndOfStreamException
+Unable to read beyond the end of the stream.
+   at System.IO.BinaryReader.InternalRead(Int32 numBytes)
+   at System.IO.BinaryReader.ReadInt32()
+   at WowPacketParser.Parsing.Parsers.ActionBarHandler.HandleInitialButtons(Packet packet) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Parsers\ActionBarHandler.cs:line 29
+   at WowPacketParser.Parsing.Handler.Parse(Packet packet, Boolean isMultiple) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Handler.cs:line 149
+
+ServerToClient: SMSG_INITIALIZE_FACTIONS (0x0122) Length: 4 ConnIdx: 0 Time: 09/05/2020 16:43:22.000 Number: 23
+Count: 64
+System.IO.EndOfStreamException
+Unable to read beyond the end of the stream.
+   at System.IO.BinaryReader.ReadByte()
+   at WowPacketParser.Misc.Packet.ReadValue(TypeCode code) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 539
+   at WowPacketParser.Misc.Packet.ReadValue[T]() in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 527
+   at WowPacketParser.Misc.Packet.ReadEnum[TEnum,T]() in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 565
+   at WowPacketParser.Misc.Packet.ReadEnum[TEnum,T](String name, Object[] indexes) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 279
+   at WowPacketParser.Misc.Packet.ReadByteE[TEnum](String name, Object[] idx) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Misc\PacketReads.cs:line 284
+   at WowPacketParser.Parsing.Parsers.ReputationHandler.HandleInitializeFactions(Packet packet) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Parsers\ReputationHandler.cs:line 20
+   at WowPacketParser.Parsing.Handler.Parse(Packet packet, Boolean isMultiple) in C:\Users\Administrator\Downloads\WowPacketParser-master\WowPacketParser-master\WowPacketParser\Parsing\Handler.cs:line 149
+

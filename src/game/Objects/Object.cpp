@@ -1283,15 +1283,13 @@ WorldObject::WorldObject()
     m_movementInfo.time = WorldTimer::getMSTime();
 }
 
+#ifdef ENABLE_ELUNA
 WorldObject::~WorldObject()
 {
-#ifdef ENABLE_ELUNA
     delete elunaEvents;
     elunaEvents = NULL;
-#endif /* ENABLE_ELUNA */
 }
-
-
+#endif /* ENABLE_ELUNA */
 
 void WorldObject::CleanupsBeforeDelete()
 {

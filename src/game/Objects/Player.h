@@ -1529,11 +1529,8 @@ class Player final: public Unit
         void RegenerateHealth();
         void HandleFoodEmotes(uint32 diff);
 
-        // used by eluna
-#ifdef ENABLE_ELUNA
         static float GetHealthBonusFromStamina(float stamina);
         static float GetManaBonusFromIntellect(float intellect);
-#endif
 
         float GetMeleeCritFromAgility() const;
         float GetDodgeFromAgility() const;
@@ -1626,10 +1623,11 @@ class Player final: public Unit
 
         float GetSpellCritPercent(SpellSchools school) const { return m_SpellCritPercentage[school]; }
         void SetSpellCritPercent(SpellSchools school, float percent) { m_SpellCritPercentage[school] = percent; }
-
+        // used by eluna
+#ifdef ENABLE_ELUNA
         float GetHealthBonusFromStamina() const { return GetHealthBonusFromStamina(GetStat(STAT_STAMINA)); };
         float GetManaBonusFromIntellect() const { return GetManaBonusFromIntellect(GetStat(STAT_INTELLECT)); };
-
+#endif
         /*********************************************************/
         /***                   SKILLS SYSTEM                   ***/
         /*********************************************************/
